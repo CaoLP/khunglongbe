@@ -148,6 +148,7 @@ class PagesController extends AppController
                 if (
                     isset($this->request->data['OrderDetail']['product_id'])
                     && $item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']
+                    && $item['OrderDetail']['options'] == $this->request->data['OrderDetail']['options']
                 ) {
                     $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
                     $isExist = true;

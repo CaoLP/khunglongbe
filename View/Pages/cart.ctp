@@ -14,7 +14,7 @@ foreach($cart as $item){
     $html_cart.="<tr>
                     <td>
                     {$this->Media->image($item['OrderDetail']['thumb'], 50, 50, array())}
-                    <span>{$item['OrderDetail']['name']}</span></td>
+                    <div>{$item['OrderDetail']['name']}</div></td>
                     <td class=\"text-center\">{$this->App->format_money($s_price)}</td>
                     <td class=\"text-center\">{$this->App->format_money($price)}</td>
                     <td class=\"text-center\">{$item['OrderDetail']['qty']}</td>
@@ -54,7 +54,9 @@ foreach($cart as $item){
                     </table>
                 </div>
             </div>
-            <div class="panel-footer">
+            <div class="panel-footer text-right">
+                <a href="" class="btn btn-bink">Thay đổi</a>
+                <a href="" class="btn btn-bink">Xóa</a>
                 <a href="" class="btn btn-bink">Thanh toán</a>
             </div>
         </div>

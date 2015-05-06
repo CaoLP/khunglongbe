@@ -98,6 +98,13 @@
                                 <table>
                                     <tbody>
                                     <?php
+                                    echo $this->Form->input('optionData',array(
+                                        'type'=>'textarea',
+                                        'value'=>json_encode($options),
+                                        'div'=>array('class'=>'hidden'),
+                                        'label'=>false
+                                        )
+                                    );
                                     foreach($options as $key=>$option){
                                         echo "<tr>";
                                         echo " <td><span class=\"prop-name\">{$key}</span></td>";
