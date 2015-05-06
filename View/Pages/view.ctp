@@ -105,6 +105,8 @@
                                         'label'=>false
                                         )
                                     );
+
+
                                     foreach($options as $key=>$option){
                                         echo "<tr>";
                                         echo " <td><span class=\"prop-name\">{$key}</span></td>";
