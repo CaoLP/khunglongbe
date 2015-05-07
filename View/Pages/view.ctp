@@ -56,7 +56,7 @@
                         echo $this->Form->input('promote_type',array('type'=>'hidden','value'=>$product['Promote']['type']));
                     }
                     if(isset($product['Product']['thumb']))
-                        echo $this->Form->input('thumb',array('type'=>'hidden','value'=>Configure::read('Img.path') . $product['Product']['thumb']));
+                        echo $this->Form->input('thumb',array('type'=>'hidden','value'=>$product['Product']['thumb']));
                     else
                         echo $this->Form->input('thumb',array('type'=>'hidden','value'=>Configure::read('Img.noImage')));
 
@@ -98,15 +98,6 @@
                                 <table>
                                     <tbody>
                                     <?php
-                                    echo $this->Form->input('optionData',array(
-                                        'type'=>'textarea',
-                                        'value'=>json_encode($options),
-                                        'div'=>array('class'=>'hidden'),
-                                        'label'=>false
-                                        )
-                                    );
-
-
                                     foreach($options as $key=>$option){
                                         echo "<tr>";
                                         echo " <td><span class=\"prop-name\">{$key}</span></td>";
@@ -114,11 +105,16 @@
                                         if(count($option) <= 1){
                                             foreach($option as $op){
                                                 echo "<td><span class=\"prop-val\">{$op['name']}</span></td>";
-                                                echo $this->Form->input('options.',array('type'=>'hidden','value'=>$op['id'], 'div'=>false,'label'=>false));
+//                                                echo $this->Form->input('options.',array('type'=>'hidden','value'=>$op['id'].'-'.$op['name'], 'div'=>false,'label'=>false));
                                             }
                                         }else{
+                                            $temp = array();
+                                            foreach($option as $each){
+                                                $each['group_name'] = $key;
+                                                $temp[] = $each;
+                                            }
                                             echo "<td><span class=\"prop-val\">";
-                                            $ops = Set::combine($option,'{n}.id','{n}.name');
+                                            $ops = Set::combine($temp,array('{0}|{1}: {2}','{n}.id','{n}.group_name','{n}.name'),'{n}.name');
                                             echo $this->Form->input('options.',array('options'=>$ops, 'div'=>false,'label'=>false));
                                             echo "</span></td>";
                                         }

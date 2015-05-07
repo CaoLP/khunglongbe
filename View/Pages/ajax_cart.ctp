@@ -8,6 +8,14 @@ if(count($cart) > 0)
         if(isset($item['OrderDetail']['promote_value'])){
             $price = $price - ($price * ($item['OrderDetail']['promote_value']/100));
         }
+        $ops = '';
+        if(count($item['OrderDetail']['options']) > 0){
+            $ops = array();
+            foreach( $item['OrderDetail']['options'] as $k=>$op){
+                $ops[] = explode('|',$op)[1];
+            }
+            $ops = implode(', ', $ops);
+        }
         $sum = $price * $item['OrderDetail']['qty'];
         $total+=$sum;
         $html_cart.="<li>
@@ -16,6 +24,7 @@ if(count($cart) > 0)
                 {$this->Media->image($item['OrderDetail']['thumb'], 50, 50, array())}
                 <div class=\"item-info\">
                     <div class=\"name\">{$item['OrderDetail']['name']}</div>
+                      <div class=\"option\">{$ops}</div>
                     <div class=\"price\">
                         <small>({$item['OrderDetail']['qty']}) {$this->App->format_money($sum)}</small>
                     </div>

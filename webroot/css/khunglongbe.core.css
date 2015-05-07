@@ -287,7 +287,6 @@ footer a {
     padding: 7px 0 0 0;
 }
 .prod-detail ul.price {
-    display: inline-table;
     font-weight: bold;
     font-style: italic;
     color: #F389B8;
@@ -295,7 +294,6 @@ footer a {
     padding: 0;
 }
 .prod-detail ul.price2 {
-    display: inline-table;
     font-weight: bold;
     font-style: italic;
     color: #f3c6d6;
@@ -304,7 +302,7 @@ footer a {
     text-decoration: line-through;
 }
 .prod-detail ul.price li{
-    display: table-cell;
+    display: inline-block;
     vertical-align: top;
     margin: 0;
     padding: 0;
@@ -314,7 +312,7 @@ footer a {
     font-size: 1em;
 }
 .prod-detail ul.price2 li {
-    display: table-cell;
+    display: inline-block;
     vertical-align: top;
     margin: 0;
     padding: 0;
@@ -498,6 +496,9 @@ header .price small{
 .dropdown-cart .item-left, .dropdown-cart .item-right{
     display: inline-block;
 }
+.dropdown-cart .item-left img{
+    vertical-align: top;
+}
 .dropdown-cart .item-right{
     margin-top: 5px;
     float: right;
@@ -505,8 +506,20 @@ header .price small{
 .dropdown-cart .item-info{
     display: inline-block;
 }
-.dropdown-cart .name{
+.dropdown-cart .name {
+    /* display: inline; */
+    margin-top: 4px;
+    margin-bottom: 2px;
+}
+.dropdown-cart .item{
+    margin-bottom: 5px;
+    border-bottom: 1px solid #FBD9E8;
+}
+.dropdown-cart .option{
     display: inline;
+    font-size: 10px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 .box-search{
     position: absolute;
@@ -529,4 +542,14 @@ header .price small{
 }
 .relative-position{
     position: relative !important;
+}
+#cart{
+    font-size: 12px;
+}
+#cart .name {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+.customer-info{
+    padding: 1.2em 1.8em !important;
 }

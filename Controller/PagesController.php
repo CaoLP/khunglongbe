@@ -155,10 +155,10 @@ class PagesController extends AppController
                 }
                 if($t['OrderDetail']['thumb']!= Configure::read('Img.noImage')){
                     $t['OrderDetail']['thumb'] = str_replace(Configure::read('Img.path').'/','',$t['OrderDetail']['thumb']);
+
                 }
                 $temp[] = $t;
             }
-
             $cart = $temp;
             if(!$isExist)
                 $cart[] = $this->request->data;
