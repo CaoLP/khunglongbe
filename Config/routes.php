@@ -28,7 +28,7 @@
 
     Router::connect('/ban-chay', array('controller' => 'pages', 'action' => 'best_sale'));
     Router::connect('/san-pham-moi', array('controller' => 'pages', 'action' => 'new_products'));
-    Router::connect('/san-pham-khuyen-mai', array('controller' => 'pages', 'action' => 'product_products'));
+    Router::connect('/san-pham-khuyen-mai', array('controller' => 'pages', 'action' => 'promote_products'));
 
 
     Router::connect('/:category', array('controller' => 'pages', 'action' => 'categories'),
