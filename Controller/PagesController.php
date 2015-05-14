@@ -221,4 +221,104 @@ class PagesController extends AppController
         $products = $this->Paginator->paginate('Product');
         $this->set(compact('products'));
     }
+
+    public function best_sale(){
+        $this->loadCategory();
+        $this->loadModel('OrderDetail');
+        $this->Paginator->settings = array(
+            'fields' => 'Product.*,Category.*,Thumb.*, SUM(OrderDetail.qty) as total',
+            'group' => array('OrderDetail.product_id'),
+            'joins' => array(
+                array(
+                    'table' => 'categories',
+                    'alias' => 'Category',
+                    'type' => 'INNER',
+                    'conditions' => array(
+                        'Product.category_id = Category.id'
+                    )
+                ),
+                array(
+                    'table' => 'medias',
+                    'alias' => 'Thumb',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.media_id = Thumb.id'
+                    )
+                )
+            ),
+            'order' => array('total DESC'),
+            'limit' => Configure::read('Page.limit')
+        );
+        $products = $this->Paginator->paginate('OrderDetail');
+        $this->set(compact('products'));
+    }
+    public function new_products(){
+        $this->loadCategory();
+        $this->loadModel('Product');
+        $this->Paginator->settings = array(
+            'fields' =>'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'conditions' => array(
+                'NOT' => array(
+                    'Product.name' => array('0',''),
+                )
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'product_promotes',
+                    'alias' => 'ProductPromote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.id = ProductPromote.product_id'
+                    )
+                ),
+                array(
+                    'table' => 'promotes',
+                    'alias' => 'Promote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'ProductPromote.promote_id = Promote.id',
+                        'Promote.begin <=' => date('Y-m-d H:i:s'),
+                        'Promote.end >=' => date('Y-m-d H:i:s'),
+                    )
+                )
+            ),
+            'order' => array('Product.created DESC'),
+            'limit' => Configure::read('Page.limit')
+        );
+        $products = $this->Paginator->paginate('Product');
+        $this->set(compact('products'));
+    }
+    public function promote_products(){
+        $this->loadCategory();
+        $this->loadModel('ProductPromote');
+        $this->Paginator->settings = array(
+            'fields' => 'Product.*, Promote.*, Category.*,Thumb.*',
+            'conditions' => array(
+                'Promote.begin <=' => date('Y-m-d H:i:s'),
+                'Promote.end >=' => date('Y-m-d H:i:s'),
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'categories',
+                    'alias' => 'Category',
+                    'type' => 'INNER',
+                    'conditions' => array(
+                        'Product.category_id = Category.id'
+                    )
+                ),
+                array(
+                    'table' => 'medias',
+                    'alias' => 'Thumb',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.media_id = Thumb.id'
+                    )
+                )
+            ),
+            'order' => array('total DESC'),
+            'limit' => Configure::read('Page.limit')
+        );
+        $products = $this->Paginator->paginate('ProductPromote');
+        $this->set(compact('products'));
+    }
 }
