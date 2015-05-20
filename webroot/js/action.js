@@ -74,3 +74,29 @@ var change_cart = function(type,id,style){
         }
     });
 };
+
+var validateForm = function (form) {
+    try{
+        $($(form).serializeArray()).each(function(index,value){
+            if(value.name != 'data[Order][email]'){
+                if(value.value == ''){
+                    $('*[name="'+value.name+'"]')
+                        .focus()
+                        .closest('.form-group')
+                        .addClass('has-error')
+                        .find('.error')
+                        .removeClass('hidden');
+                    return false;
+                }else{
+                    $('*[name="'+value.name+'"]')
+                        .closest('.form-group')
+                        .removeClass('has-error')
+                        .find('.error')
+                        .addClass('hidden');
+                }
+            }
+        });
+    }catch(ex){
+        console.log(ex);
+    }
+};

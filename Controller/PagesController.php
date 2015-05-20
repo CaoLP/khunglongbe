@@ -197,6 +197,17 @@ class PagesController extends AppController
             }else{
                 $this->view = 'ajax_cart';
             }
+        }else if(isset($this->request->query['clear']))
+        {
+            $this->Session->delete('Shop.cart');
+            $this->redirect(array(
+                'action' => 'index'
+            ));
+        }else if($this->request->is('post')){
+            if ($this->Session->check('Shop.cart')) {
+                $cart = $this->Session->read('Shop.cart');
+                debug($cart);die;
+            }
         }
     }
 

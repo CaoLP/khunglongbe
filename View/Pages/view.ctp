@@ -59,10 +59,11 @@
                         echo $this->Form->input('thumb',array('type'=>'hidden','value'=>$product['Product']['thumb']));
                     else
                         echo $this->Form->input('thumb',array('type'=>'hidden','value'=>Configure::read('Img.noImage')));
-
+                    $t = $product;
+                    unset($t['Product']['descriptions']);
                     echo $this->Form->input('data',array('type'=>'textarea',
                         'div'=>array('class'=>'hidden'),
-                        'value'=> json_encode($product)
+                        'value'=> json_encode($t)
                         )
                     );
                     ?>

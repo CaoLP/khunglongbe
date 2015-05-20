@@ -162,7 +162,11 @@ header{
 }
 #p-content .item {
     padding: 0 2px;
-    height: 215px;
+    min-height: 215px;
+}
+#p-content .item .thumbnail img {
+    width: 100% !important;
+    height: auto !important;
 }
 #p-content .item:hover {
     background-color: #F6B0CE;
@@ -184,6 +188,7 @@ header{
 #p-content .item .price-box{
     margin-top: 5px;
     margin-bottom: 40px;
+    height: 30px;
 }
 #p-content .item .price-box ul{
     display: table;
@@ -561,4 +566,8 @@ header .price small{
     padding: .5em .8em;
     font-size: 12px;
     border-radius: 2px;
+}
+.error{
+    margin-top: 10px;
+    color: red;
 }
