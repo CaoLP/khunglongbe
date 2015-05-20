@@ -20,7 +20,7 @@
                     ?>">
 
                         <div class="img">
-                            <?php echo $this->Media->image($p['Thumb']['file'], 235, 235, array()); ?>
+                            <?php echo $this->Media->image($p['Thumb']['file'], $data['img_w'], $data['mg_h'], array()); ?>
                         </div>
                         <div class="caption">
                             <h6><?php echo $p['Product']['name']; ?></h6>
