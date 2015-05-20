@@ -147,6 +147,10 @@ header{
     margin-bottom: 10px;
 
 }
+#p-content .panel-heading  a{
+    color: #f5a4c7;
+    text-transform: none;
+}
 #p-content .panel-heading small a{
     color: #f5a4c7;
     text-transform: none;
@@ -474,7 +478,7 @@ footer a {
     width: 250px;
 }
 .logo {
-    background: #F17DB1;
+    background: #fac9dc;
     width: 120px;
     height: 130px;
     margin-left: 100px;
@@ -552,4 +556,9 @@ header .price small{
 }
 .customer-info{
     padding: 1.2em 1.8em !important;
+}
+.btn-mini{
+    padding: .5em .8em;
+    font-size: 12px;
+    border-radius: 2px;
 }

@@ -3,14 +3,14 @@ $cart = $this->Session->read('Shop.cart');
 $html_cart = '';
 $total = 0;
 if(count($cart) > 0)
-foreach($cart as $item){
+foreach($cart as $key=>$item){
     $price = $item['OrderDetail']['price'];
     $s_price = $item['OrderDetail']['price'];
     if(isset($item['OrderDetail']['promote_value'])){
         $price = $price - ($price * ($item['OrderDetail']['promote_value']/100));
     }
     $ops = '';
-    if(count($item['OrderDetail']['options']) > 0){
+    if(isset($item['OrderDetail']['options']) && count($item['OrderDetail']['options']) > 0){
         $ops = array();
         foreach( $item['OrderDetail']['options'] as $k=>$op){
             $ops[] = explode('|',$op)[1];
@@ -25,25 +25,30 @@ foreach($cart as $item){
                     <div class='name'>{$item['OrderDetail']['name']}</div>
                     <div class='option'>{$ops}</div>
                     </td>
-                    <td class=\"text-center\">{$this->App->format_money($s_price)}</td>
-                    <td class=\"text-center\">{$this->App->format_money($price)}</td>
-                    <td class=\"text-center\">{$item['OrderDetail']['qty']}</td>
-                    <td class=\"text-right\">{$this->App->format_money($sum)}</td>
+                    <td class=\"text-center\" class=\"price\">{$this->App->format_money($s_price)}</td>
+                    <td class=\"text-center\" class=\"price\">{$this->App->format_money($price)}</td>
+                    <td class=\"text-center\">
+                    <a href=\"javascript:;\" class=\"pull-left cart-minus-p\" data-id=\"{$key}\"><i class=\"fa fa-minus\"></i></a>
+                    <span class=\"qty\">{$item['OrderDetail']['qty']}</span>
+                    <a href=\"javascript:;\" class=\"pull-right cart-add-p\" data-id=\"{$key}\"><i class=\"fa fa-plus\"></i></a>
+                    </td>
+                    <td class=\"text-right\" class=\"total\">{$this->App->format_money($sum)}</td>
+                   <td><a href=\"javascript:;\" class=\"pull-left btn btn-mini btn-danger cart-remove-p\"
+                        data-style=\"1\"
+                        data-id=\"{$key}\"><i class=\"fa fa-trash\"></i></a></td>
                 </tr>";
 }
-
 ?>
-
 <div class="col-md-12" id="p-content">
     <?php echo $this->Form->create('Order', array('role' => 'form')); ?>
-        <div class="col-lg-6">
+        <div class="col-lg-7">
             <div class="panel panel-pink">
                 <div class="panel-heading">
                     <h5 class="text-center"><strong>Giỏ hàng</strong></h5>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
-                        <table class="table table-condensed" id="cart">
+                        <table class="table table-condensed" id="p-cart">
                             <thead>
                             <tr>
                                 <td></td>
@@ -52,6 +57,7 @@ foreach($cart as $item){
                                 <td class="text-center"><strong>Giá khuyến mãi</strong></td>
                                 <td class="text-center"><strong>Số lượng</strong></td>
                                 <td class="text-right"><strong>Thành tiền</strong></td>
+                                <td></td>
                             </tr>
                             </thead>
                             <tbody>
@@ -62,6 +68,7 @@ foreach($cart as $item){
                                 <td class="highrow"></td>
                                 <td class="highrow text-center" colspan="2"><strong>Tổng cộng</strong></td>
                                 <td class="highrow text-right"><?php echo $this->App->format_money($total);?></td>
+                                <td></td>
                             </tr>
                             </tbody>
                         </table>
@@ -73,7 +80,7 @@ foreach($cart as $item){
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5">
             <div class="panel panel-pink">
                 <div class="panel-heading">
                     <h5 class="text-center"><strong>Thông tin của bạn</strong></h5>

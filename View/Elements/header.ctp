@@ -1,8 +1,7 @@
 <div class="container relative-position">
-    <div class="logo">
-
-    </div>
-
+    <a href="<?php echo $this->Html->url('/')?>">
+    <?php echo $this->Html->image('logo.png', array('alt'=>'Khủng Long bé'))?>
+    </a>
     <div class="box-search">
         <div class="container">
             <form>
@@ -24,13 +23,13 @@
             $html_cart = '';
             $total = 0;
             if(count($cart) > 0)
-            foreach ($cart as $item) {
+            foreach ($cart as $key=>$item) {
                 $price = $item['OrderDetail']['price'];
                 if (isset($item['OrderDetail']['promote_value'])) {
                     $price = $price - ($price * ($item['OrderDetail']['promote_value'] / 100));
                 }
                 $ops = '';
-                if(count($item['OrderDetail']['options']) > 0){
+                if(isset($item['OrderDetail']['options']) && count($item['OrderDetail']['options']) > 0){
                     $ops = array();
                     foreach( $item['OrderDetail']['options'] as $k=>$op){
                         $ops[] = explode('|',$op)[1];
@@ -52,7 +51,7 @@
                         </div>
                     </div>
                     <div class=\"item-right\">
-                        <button class=\"btn btn-xs btn-danger pull-right remove\">x</button>
+                        <button data-id=\"{$key}\" class=\"btn btn-xs btn-danger pull-right remove\">x</button>
                     </div>
                 </div>
             </li>";

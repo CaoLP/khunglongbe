@@ -33,4 +33,44 @@ $(function () {
             }
         });
     });
+    $(document).on('click','.cart-add-p',function(){
+        change_cart('add',$(this).data('id'),2);
+    });
+    $(document).on('click','.cart-minus-p',function(){
+        change_cart('minus',$(this).data('id'),2);
+    });
+    $(document).on('click','.cart-remove-p',function(){
+        change_cart('remove',$(this).data('id'),2);
+    });
+    $(document).on('click','.remove',function(){
+        change_cart('remove',$(this).data('id'));
+    });
 });
+var change_cart = function(type,id,style){
+    $.ajax({
+        url: cartUrl,
+        type: 'post',
+        data: {
+            m: true,
+            type: type,
+            id : id,
+            style : style
+        },
+        beforeSend: function(){
+
+        },
+        success : function(data){
+            if(typeof style != "undefined"){
+                $('#p-cart').html(data);
+                $.ajax({
+                    url: cartUrl,
+                    success: function(data){
+                        $('#cart').html(data);
+                    }
+                });
+            }else{
+                $('#cart').html(data);
+            }
+        }
+    });
+};

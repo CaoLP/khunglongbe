@@ -143,28 +143,60 @@ class PagesController extends AppController
             }
             $temp = array();
             $isExist = false;
-            foreach ($cart as $item) {
-                $t = $item;
-                if (
-                    isset($this->request->data['OrderDetail']['product_id'])
-                    && $item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']
-                    && $item['OrderDetail']['options'] == $this->request->data['OrderDetail']['options']
-                ) {
-                    $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
-                    $isExist = true;
+            if (isset($this->request->data['m'])) {
+                $key = $this->request->data['id'];
+                if(isset($cart[$key])){
+                    switch ($this->request->data['type']) {
+                        case 'add':
+                            $cart[$key]['OrderDetail']['qty'] = $cart[$key]['OrderDetail']['qty'] + 1;
+                            break;
+                        case 'minus':
+                            $cart[$key]['OrderDetail']['qty'] = $cart[$key]['OrderDetail']['qty'] - 1;
+                            if ($cart[$key]['OrderDetail']['qty'] < 1) {
+                                $cart[$key]['OrderDetail']['qty'] = 1;
+                            }
+                            break;
+                        case 'remove':
+                            unset($cart[$key]);
+                            break;
+                    }
                 }
-                if($t['OrderDetail']['thumb']!= Configure::read('Img.noImage')){
-                    $t['OrderDetail']['thumb'] = str_replace(Configure::read('Img.path').'/','',$t['OrderDetail']['thumb']);
-
+            }else{
+                if( isset($this->request->data['OrderDetail']['product_id'])){
+                foreach ($cart as $item) {
+                    $t = $item;
+                    if( isset($this->request->data['OrderDetail']['product_id'])){
+                        if (
+                            isset($this->request->data['OrderDetail']['options'])
+                            && $item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']
+                            && $item['OrderDetail']['options'] == $this->request->data['OrderDetail']['options']
+                        ) {
+                            $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
+                            $isExist = true;
+                        }else{
+                            if($item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']){
+                                $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
+                                $isExist = true;
+                            }
+                        }
+                    }
+                    if ($t['OrderDetail']['thumb'] != Configure::read('Img.noImage')) {
+                        $t['OrderDetail']['thumb'] = str_replace(Configure::read('Img.path') . '/', '', $t['OrderDetail']['thumb']);
+                    }
+                    $temp[] = $t;
                 }
-                $temp[] = $t;
+                $cart = $temp;
+                if (!$isExist)
+                    $cart[] = $this->request->data;
+                }
             }
-            $cart = $temp;
-            if(!$isExist)
-                $cart[] = $this->request->data;
             $this->Session->write('Shop.cart', $cart);
             $this->layout = 'ajax';
-            $this->view = 'ajax_cart';
+            if (isset($this->request->data['style'])) {
+                $this->view = 'ajax_cart_table';
+            }else{
+                $this->view = 'ajax_cart';
+            }
         }
     }
 
@@ -222,7 +254,8 @@ class PagesController extends AppController
         $this->set(compact('products'));
     }
 
-    public function best_sale(){
+    public function best_sale()
+    {
         $this->loadCategory();
         $this->loadModel('OrderDetail');
         $this->Paginator->settings = array(
@@ -252,14 +285,16 @@ class PagesController extends AppController
         $products = $this->Paginator->paginate('OrderDetail');
         $this->set(compact('products'));
     }
-    public function new_products(){
+
+    public function new_products()
+    {
         $this->loadCategory();
         $this->loadModel('Product');
         $this->Paginator->settings = array(
-            'fields' =>'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
                 'NOT' => array(
-                    'Product.name' => array('0',''),
+                    'Product.name' => array('0', ''),
                 )
             ),
             'joins' => array(
@@ -288,7 +323,9 @@ class PagesController extends AppController
         $products = $this->Paginator->paginate('Product');
         $this->set(compact('products'));
     }
-    public function promote_products(){
+
+    public function promote_products()
+    {
         $this->loadCategory();
         $this->loadModel('ProductPromote');
         $this->Paginator->settings = array(
