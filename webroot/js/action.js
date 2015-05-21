@@ -76,9 +76,10 @@ var change_cart = function(type,id,style){
 };
 
 var validateForm = function (form) {
+    var stop_here = false;
     try{
         $($(form).serializeArray()).each(function(index,value){
-            if(value.name != 'data[Order][email]'){
+            if(value.name != 'data[Order][ship_email]' && value.name != 'data[Order][ship_note]'){
                 if(value.value == ''){
                     $('*[name="'+value.name+'"]')
                         .focus()
@@ -86,6 +87,7 @@ var validateForm = function (form) {
                         .addClass('has-error')
                         .find('.error')
                         .removeClass('hidden');
+                    stop_here = true;
                     return false;
                 }else{
                     $('*[name="'+value.name+'"]')
@@ -98,5 +100,9 @@ var validateForm = function (form) {
         });
     }catch(ex){
         console.log(ex);
+        return false;
+    }
+    if(stop_here){
+        return false;
     }
 };

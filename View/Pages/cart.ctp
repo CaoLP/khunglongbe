@@ -96,27 +96,30 @@ if (count($cart) > 0)
             </div>
             <div class="panel-body customer-info">
                 <div class="form-group">
-                    <?php echo $this->Form->input('name', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Họ Tên*'), 'placeholder' => 'Họ Tên')); ?>
+                    <?php echo $this->Form->input('ship_name', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Họ Tên*'), 'placeholder' => 'Họ Tên')); ?>
                     <div class="error hidden">Không được để trống.</div>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('phone', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Số điện thoại*'), 'placeholder' => 'Số điện thoại')); ?>
+                    <?php echo $this->Form->input('ship_phone', array('empty' => false, 'class' => 'form-control number', 'label' => array('class' => 'control-label', 'text' => 'Số điện thoại*'), 'placeholder' => 'Số điện thoại')); ?>
                     <div class="error hidden">Không được để trống.</div>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('email', array('class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Hộp thư điện tử'), 'placeholder' => 'Hộp thư điện tử')); ?>
+                    <?php echo $this->Form->input('ship_email', array('class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Hộp thư điện tử'), 'placeholder' => 'Hộp thư điện tử')); ?>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('address', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Địa chỉ*'), 'placeholder' => 'Địa chỉ')); ?>
+                    <?php echo $this->Form->input('ship_address', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Địa chỉ*'), 'placeholder' => 'Địa chỉ')); ?>
                     <div class="error hidden">Không được để trống.</div>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('district', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Quận, Huyện*'), 'placeholder' => 'Quận, Huyện')); ?>
+                    <?php echo $this->Form->input('ship_district', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Quận, Huyện*'), 'placeholder' => 'Quận, Huyện')); ?>
                     <div class="error hidden">Không được để trống.</div>
                 </div>
                 <div class="form-group">
-                    <?php echo $this->Form->input('city', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Thành phố*'), 'placeholder' => 'Thành phố')); ?>
+                    <?php echo $this->Form->input('ship_city', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Thành phố*'), 'placeholder' => 'Thành phố')); ?>
                     <div class="error hidden">Không được để trống.</div>
+                </div>
+                <div class="form-group">
+                    <?php echo $this->Form->input('ship_note', array('empty' => false, 'class' => 'form-control', 'label' => array('class' => 'control-label', 'text' => 'Ghi chú*'), 'placeholder' => 'Ghi chú')); ?>
                 </div>
             </div>
             <div class="panel-footer text-right">

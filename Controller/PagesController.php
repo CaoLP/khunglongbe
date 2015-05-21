@@ -145,7 +145,7 @@ class PagesController extends AppController
             $isExist = false;
             if (isset($this->request->data['m'])) {
                 $key = $this->request->data['id'];
-                if(isset($cart[$key])){
+                if (isset($cart[$key])) {
                     switch ($this->request->data['type']) {
                         case 'add':
                             $cart[$key]['OrderDetail']['qty'] = $cart[$key]['OrderDetail']['qty'] + 1;
@@ -161,52 +161,102 @@ class PagesController extends AppController
                             break;
                     }
                 }
-            }else{
-                if( isset($this->request->data['OrderDetail']['product_id'])){
-                foreach ($cart as $item) {
-                    $t = $item;
-                    if( isset($this->request->data['OrderDetail']['product_id'])){
-                        if (
-                            isset($this->request->data['OrderDetail']['options'])
-                            && $item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']
-                            && $item['OrderDetail']['options'] == $this->request->data['OrderDetail']['options']
-                        ) {
-                            $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
-                            $isExist = true;
-                        }else{
-                            if($item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']){
+            } else {
+                if (isset($this->request->data['OrderDetail']['product_id'])) {
+                    foreach ($cart as $item) {
+                        $t = $item;
+                        if (isset($this->request->data['OrderDetail']['product_id'])) {
+                            if (
+                                isset($this->request->data['OrderDetail']['options'])
+                                && $item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']
+                                && $item['OrderDetail']['options'] == $this->request->data['OrderDetail']['options']
+                            ) {
                                 $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
                                 $isExist = true;
+                            } else {
+                                if ($item['OrderDetail']['product_id'] == $this->request->data['OrderDetail']['product_id']) {
+                                    $t['OrderDetail']['qty'] = $t['OrderDetail']['qty'] + $this->request->data['OrderDetail']['qty'];
+                                    $isExist = true;
+                                }
                             }
                         }
+                        if ($t['OrderDetail']['thumb'] != Configure::read('Img.noImage')) {
+                            $t['OrderDetail']['thumb'] = str_replace(Configure::read('Img.path') . '/', '', $t['OrderDetail']['thumb']);
+                        }
+                        $temp[] = $t;
                     }
-                    if ($t['OrderDetail']['thumb'] != Configure::read('Img.noImage')) {
-                        $t['OrderDetail']['thumb'] = str_replace(Configure::read('Img.path') . '/', '', $t['OrderDetail']['thumb']);
-                    }
-                    $temp[] = $t;
-                }
-                $cart = $temp;
-                if (!$isExist)
-                    $cart[] = $this->request->data;
+                    $cart = $temp;
+                    if (!$isExist)
+                        $cart[] = $this->request->data;
                 }
             }
             $this->Session->write('Shop.cart', $cart);
             $this->layout = 'ajax';
             if (isset($this->request->data['style'])) {
                 $this->view = 'ajax_cart_table';
-            }else{
+            } else {
                 $this->view = 'ajax_cart';
             }
-        }else if(isset($this->request->query['clear']))
-        {
+        } else if (isset($this->request->query['clear'])) {
             $this->Session->delete('Shop.cart');
             $this->redirect(array(
                 'action' => 'index'
             ));
-        }else if($this->request->is('post')){
+        } else if ($this->request->is('post')) {
             if ($this->Session->check('Shop.cart')) {
                 $cart = $this->Session->read('Shop.cart');
-                debug($cart);die;
+                $save_detail = array();
+                $save_order = $this->request->data;
+                $total = 0;
+                $total_promote = 0;
+                $amount = 0;
+                foreach ($cart as $item) {
+                    $save_detail[] = array(
+                        'order_id' => 0,
+                        'product_id' => $item['OrderDetail']['product_id'],
+                        'name' => $item['OrderDetail']['name'],
+                        'price' => $item['OrderDetail']['price'],
+                        'sku' => $item['OrderDetail']['sku'],
+                        'qty' => $item['OrderDetail']['qty'],
+                        'promote_id' => isset($item['OrderDetail']['promote_id']) ? $item['OrderDetail']['promote_id'] : 0,
+                        'promote_value' => isset($item['OrderDetail']['promote_value']) ? $item['OrderDetail']['promote_value'] : 0,
+                        'promote_type' => isset($item['OrderDetail']['promote_type']) ? $item['OrderDetail']['promote_type'] : 0,
+                        'product_options' => isset($item['OrderDetail']['options']) ? json_encode($item['OrderDetail']['options']) : '',
+                        'data' => $item['OrderDetail']['data'],
+                    );
+                    $sub_total = 0;
+                    $sub_promote = 0;
+                    $sub_amount = 0;
+                    $total += ($item['OrderDetail']['price'] * $item['OrderDetail']['qty']);
+                    if (isset($item['OrderDetail']['promote_id'])) {
+                        $sub_promote = $item['OrderDetail']['price'] * ($item['OrderDetail']['promote_value'] / 100);
+                        $sub_amount = ($item['OrderDetail']['price']) - ($item['OrderDetail']['price'] * ($item['OrderDetail']['promote_value'] / 100));
+                    } else {
+                        $sub_amount = ($item['OrderDetail']['price']);
+                    }
+                    $total_promote += ($sub_promote * $item['OrderDetail']['qty']);
+                    $amount += ($sub_amount * $item['OrderDetail']['qty']);
+                }
+                $save_order['Order']['code'] = 'OR' . strtotime(date('Y-m-d'));;
+                $save_order['Order']['customer_id'] = 1;
+                $save_order['Order']['user_id'] = 0;
+                $save_order['Order']['store_id'] = 1;
+                $save_order['Order']['promote_id'] = 0;
+                $save_order['Order']['promote_type'] = 0;
+                $save_order['Order']['promote_value'] = 0;
+                $save_order['Order']['total'] = $total;
+                $save_order['Order']['total_promote'] = $total_promote;
+                $save_order['Order']['amount'] = $amount;
+                $this->loadModel('Order');
+                $this->loadModel('OrderDetail');
+                if ($this->Order->save($save_order)) {
+                    foreach ($save_detail as $key => $item) {
+                        $save_detail[$key]['order_id'] = $this->Order->id;
+                    }
+                    $this->OrderDetail->saveMany($save_detail);
+                    $this->view = 'order_complete';
+                    $this->Session->delete('Shop.cart');
+                }
             }
         }
     }
