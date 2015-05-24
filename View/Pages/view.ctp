@@ -126,7 +126,7 @@
                                         <td><span class="prop-name">Số lượng</span></td>
                                         <td>:</td>
                                         <td><span class="prop-val"><?php echo $this->Form->input('qty',array(
-                                                    'value'=>'1','class'=>'border-1 qty','div'=>false,'label'=>false,'min'=> 1
+                                                    'value'=>'1','data-type'=>'number','class'=>'border-1 qty','div'=>false,'label'=>false,'min'=> 1
                                                     )
                                                 );?></span></td>
                                     </tr>
