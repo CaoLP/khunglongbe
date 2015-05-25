@@ -264,6 +264,9 @@ footer a {
 .carousel-inner .item{
     height: 360px;
 }
+#carousel-example-generic{
+    height: 360px;
+}
 
 .prod-detail .desc {
     font-size: .9em;

@@ -125,7 +125,10 @@ class PagesController extends AppController
 
     public function promotes($slug = null)
     {
-
+        if($this->request->is('ajax')){
+            $this->layout = 'ajax';
+            $this->view = 'ajax_slide';
+        }
     }
 
     public function order()
