@@ -9,6 +9,7 @@ App::uses('AppModel', 'Model');
  */
 class Promote extends AppModel {
 
+    public $actsAs = array('Media');
 /**
  * Validation rules
  *

@@ -1,4 +1,5 @@
 $(function () {
+    $.ajaxSetup({cache:false});
     $(".share-popup").click(function () {
         var window_size = "";
         var url = this.href;
@@ -64,6 +65,14 @@ $(function () {
     $(document).on('click','.remove',function(){
         change_cart('remove',$(this).data('id'));
     });
+    if($('#carousel').length > 0){
+        $.ajax({
+            url: slide,
+            success : function(data){
+                $('#carousel').html(data);
+            }
+        });
+    }
     if($('.timer').length > 0){
         var inter = setInterval(function(){
             var cur = $('.timer').text();

@@ -123,11 +123,41 @@ class PagesController extends AppController
         $this->set(compact('products'));
     }
 
-    public function promotes($slug = null)
+    public function promotes($id = null)
     {
-        if($this->request->is('ajax')){
+        $this->loadModel('Promote');
+
+        if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
             $this->view = 'ajax_slide';
+            $promotes = $this->Promote->find('all', array(
+                'conditions' => array(
+                    'Promote.begin <=' => date('Y-m-d H:i:s'),
+                    'Promote.end >=' => date('Y-m-d H:i:s'),
+                    'Promote.status' => 1
+                )
+            ));
+            $this->set(compact('promotes'));
+        } else if ($id != null) {
+            $this->view = 'promote_view';
+            $promote =  $this->Promote->find('first', array(
+                'conditions' =>array(
+                    'Promote.id' => $id
+                )
+            ));
+            $this->set(compact('promote'));
+        } else {
+            $this->Paginator->settings = array(
+                'conditions' => array(
+                    'Promote.status' => 1
+                ),
+                'limit' => 5,
+                'order' => array(
+                    'created' => 'desc'
+                )
+            );
+            $promotes = $this->Paginator->paginate('Promote');
+            $this->set(compact('promotes'));
         }
     }
 
