@@ -236,8 +236,8 @@ footer{
 }
 footer .footer-logo {
     position: absolute;
-    top: 7px;
-    left: 40px;
+    top: -20px;
+    left: 45px;
 }
 footer .fcol-01 ,footer .fcol-03 {
     padding-top: 60px;
@@ -595,4 +595,10 @@ header .price small{
     .fluidMedia{
         padding-bottom: 175%;
     }
+}
+.btn-facebook{
+    background-color: #3b5998;
+}
+.facebook-logo{
+    color: #3b5998;
 }

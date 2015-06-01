@@ -58,4 +58,7 @@ class AppController extends Controller
 //        return $this->Session->read('Auth.User.role') == 'admin'; // Only admins can upload medias for everything else
         return true;
     }
+    public function setTitle($title){
+        $this->set('title_for_layout',$title);
+    }
 }

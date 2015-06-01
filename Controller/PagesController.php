@@ -37,6 +37,7 @@ class PagesController extends AppController
 
     public function index()
     {
+        $this->setTitle('Trang chủ');
         $this->loadCategory();
         $best_sale = array();
         $new_products = array();
@@ -62,6 +63,10 @@ class PagesController extends AppController
         $categories = $this->Category->find('threaded',
             array(
                 'fields' => array('id', 'name', 'slug', 'parent_id'),
+                'conditions' => array(
+                    'Category.name <>' => '0',
+                    'Category.status' => '1',
+                ),
                 'recursive' => -1
             )
         );
@@ -83,6 +88,7 @@ class PagesController extends AppController
         ));
         $options = Set::combine($options, '{n}.Option.id', '{n}.Option', '{n}.OptionGroup.name');
         $this->set(compact('options'));
+        $this->setTitle($product['Product']['name']);
     }
 
     public function products($slug = null)
@@ -121,6 +127,7 @@ class PagesController extends AppController
         );
         $products = $this->Paginator->paginate('Product');
         $this->set(compact('products'));
+        $this->setTitle('Sản phẩm');
     }
 
     public function promotes($id = null)
@@ -146,6 +153,7 @@ class PagesController extends AppController
                 )
             ));
             $this->set(compact('promote'));
+            $this->setTitle($promote['Promote']['name']);
         } else {
             $this->Paginator->settings = array(
                 'conditions' => array(
@@ -158,6 +166,7 @@ class PagesController extends AppController
             );
             $promotes = $this->Paginator->paginate('Promote');
             $this->set(compact('promotes'));
+            $this->setTitle('Khuyến mãi');
         }
     }
 
@@ -168,6 +177,7 @@ class PagesController extends AppController
 
     public function cart()
     {
+        $this->setTitle('Giỏ hàng');
 //        $this->Session->delete('Shop.cart');
         if ($this->request->isAjax()) {
             $cart = array();
@@ -297,17 +307,17 @@ class PagesController extends AppController
 
     public function news($slug = null)
     {
-
+        $this->setTitle('Tin tức');
     }
 
     public function blogs($slug = null)
     {
-
+        $this->setTitle('Blog');
     }
 
     public function contact()
     {
-
+        $this->setTitle('Liên hệ');
     }
 
     public function categories($category = null)
@@ -347,10 +357,15 @@ class PagesController extends AppController
         );
         $products = $this->Paginator->paginate('Product');
         $this->set(compact('products'));
+        if(isset($products['Category']['name']))
+            $this->setTitle($products['Category']['name']);
+        else
+            $this->setTitle('Sản phẩm');
     }
 
     public function best_sale()
     {
+        $this->setTitle('Sản phẩm bán chạy');
         $this->loadCategory();
         $this->loadModel('OrderDetail');
         $this->Paginator->settings = array(
@@ -383,6 +398,7 @@ class PagesController extends AppController
 
     public function new_products()
     {
+        $this->setTitle('Sản phẩm mới');
         $this->loadCategory();
         $this->loadModel('Product');
         $this->Paginator->settings = array(
@@ -421,6 +437,7 @@ class PagesController extends AppController
 
     public function promote_products()
     {
+        $this->setTitle('Sản phẩm khuyến mãi');
         $this->loadCategory();
         $this->loadModel('ProductPromote');
         $this->Paginator->settings = array(
