@@ -4,11 +4,11 @@
     </a>
     <div class="box-search">
         <div class="container">
-            <form>
+            <form action="<?php echo $this->Html->url('/tim-kiem')?>">
                 <div class="input-group">
-                    <input type="text" class="form-control input-sm" placeholder="Tìm kiếm...">
+                    <input type="text" name="q" value="" class="form-control input-sm" placeholder="Tìm kiếm...">
               <span class="input-group-btn">
-                <button class="btn btn-pink" type="button">Tìm !</button>
+                <button class="btn btn-pink" type="submit">Tìm !</button>
               </span>
                 </div>
             </form>

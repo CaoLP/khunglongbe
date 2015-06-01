@@ -129,7 +129,50 @@ class PagesController extends AppController
         $this->set(compact('products'));
         $this->setTitle('Sản phẩm');
     }
-
+    public function search()
+    {
+        $q = '';
+        if(isset($this->request->query['q'])){
+            $q = $this->request->query['q'];
+        }
+        $this->loadCategory();
+        $this->loadModel('Product');
+        $this->Paginator->settings = array(
+            'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'conditions' => array(
+                'NOT' => array(
+                    'Product.name' => array('0', ''),
+                ),
+                'Product.name like' => '%'.$q.'%',
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'product_promotes',
+                    'alias' => 'ProductPromote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.id = ProductPromote.product_id'
+                    )
+                ),
+                array(
+                    'table' => 'promotes',
+                    'alias' => 'Promote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'ProductPromote.promote_id = Promote.id',
+                        'Promote.begin <=' => date('Y-m-d H:i:s'),
+                        'Promote.end >=' => date('Y-m-d H:i:s'),
+                    )
+                )
+            ),
+            'order' => array('Product.created DESC'),
+            'limit' => Configure::read('Page.limit')
+        );
+        $products = $this->Paginator->paginate('Product');
+        $this->set(compact('products'));
+        $this->setTitle('Tìm kiếm : "' . $q . '"');
+        $this->view = 'products';
+    }
     public function promotes($id = null)
     {
         $this->loadModel('Promote');
