@@ -11,8 +11,8 @@ echo $this->element(
             'class' => 'hot',
             'url'=> $this->Html->url(array('controller' => 'pages', 'action' => 'best_sale')),
             'products'=> $best_sale,
-            'img_w' => 153,
-            'img_h' => 102,
+            'img_w' => 232,
+            'img_h' => 155,
         )
     )
 );
@@ -24,8 +24,8 @@ echo $this->element(
             'class' => 'new',
             'url'=> $this->Html->url(array('controller' => 'pages', 'action' => 'new_products')),
             'products'=> $new_products,
-            'img_w' => 153,
-            'img_h' => 102,
+            'img_w' => 232,
+            'img_h' => 155,
         )
     )
 );
@@ -37,8 +37,8 @@ echo $this->element(
             'class' => 'sale',
             'url'=> $this->Html->url(array('controller' => 'pages', 'action' => 'promote_products')),
             'products'=> $promote_products,
-            'img_w' => 153,
-            'img_h' => 102,
+            'img_w' => 232,
+            'img_h' => 155,
         )
     )
 );
@@ -50,8 +50,8 @@ echo $this->element(
             'class' => 'cart',
             'url'=> $this->Html->url(array('controller' => 'pages', 'action' => 'products')),
             'products'=> $products,
-            'img_w' => 153,
-            'img_h' => 102,
+            'img_w' => 232,
+            'img_h' => 155,
         )
     )
 );

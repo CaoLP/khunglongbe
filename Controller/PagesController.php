@@ -45,15 +45,15 @@ class PagesController extends AppController
         $products = array();
         //Best sale
         $this->loadModel('OrderDetail');
-        $best_sale = $this->OrderDetail->best_Sale(6);
+        $best_sale = $this->OrderDetail->best_Sale(8);
         //New Product
         $this->loadModel('Product');
-        $new_products = $this->Product->getProduct('Product.created DESC', 6);
+        $new_products = $this->Product->getProduct('Product.created DESC', 8);
         //Product Promote
         $this->loadModel('ProductPromote');
-        $promote_products = $this->ProductPromote->getProduct(6);
+        $promote_products = $this->ProductPromote->getProduct(8);
         //Product
-        $products = $this->Product->getProduct('Rand()', 6);
+        $products = $this->Product->getProduct('Rand()', 8);
         $this->set(compact('best_sale', 'new_products', 'promote_products', 'products'));
     }
 
