@@ -367,13 +367,21 @@ class PagesController extends AppController
     {
         $this->loadCategory();
         $this->loadModel('Product');
+        $this->loadModel('Category');
+        $cat = $this->Category->find('first',array(
+            'conditions' =>array(
+                'Category.slug' => $category
+            )
+        ));
+        $allChildren = $this->Category->children($cat['Category']['id']);
+        $allChildren = Set::combine($allChildren,'{n}.Category.id','{n}.Category.id');
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
                 'NOT' => array(
                     'Product.name' => array('0', ''),
                 ),
-                'Category.slug' => $category
+                'Category.id' => $allChildren
             ),
             'joins' => array(
                 array(
@@ -400,8 +408,8 @@ class PagesController extends AppController
         );
         $products = $this->Paginator->paginate('Product');
         $this->set(compact('products'));
-        if(isset($products['Category']['name']))
-            $this->setTitle($products['Category']['name']);
+        if(isset($cat['Category']['name']))
+            $this->setTitle($cat['Category']['name']);
         else
             $this->setTitle('Sản phẩm');
     }

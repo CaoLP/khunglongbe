@@ -366,5 +366,5 @@ Cache::config('_cake_model_', array(
 Configure::write('Upload.path', '/home/quanly.khunglongbe.com/public_html/app/webroot/');
 Configure::write('Img.path', 'http://quanly.khunglongbe.com/');
 Configure::write('Img.noImage', 'http://khunglongbe.com/img/noimage.png');
-Configure::write('Page.limit',18);
+Configure::write('Page.limit',20);
 Configure::write('Site.title','Khủng long bé');

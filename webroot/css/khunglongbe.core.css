@@ -162,7 +162,7 @@ header{
 }
 #p-content .item {
     padding: 0 2px;
-    min-height: 215px;
+    min-height: 288px;
 }
 #p-content .item .thumbnail img {
     width: 100% !important;

@@ -2,7 +2,26 @@
 <div class="panel">
     <div class="<?php echo $data['class']?>"></div>
     <div class="panel-heading has-icon"><a href="<?php echo $data['url']?>"><?php echo $data['title']?></a>
-        <small class="pull-right"><a href="<?php echo $data['url']?>">Xem thêm</a></small>
+        <small class="pull-right">
+            <?php if(isset($data['use_paginate'])){?>
+                <small class="pull-right">
+                    <?php
+                    $params = $this->Paginator->params();
+                    if ($params['pageCount'] > 1) {
+                        ?>
+                        <ul class="pagination pagination-sm">
+                            <?php
+                            echo $this->Paginator->prev('&larr; Previous', array('class' => 'prev', 'tag' => 'li', 'escape' => false), '<a onclick="return false;">&larr; Previous</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+                            echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentClass' => 'active', 'currentTag' => 'a'));
+                            echo $this->Paginator->next('Next &rarr;', array('class' => 'next', 'tag' => 'li', 'escape' => false), '<a onclick="return false;">Next &rarr;</a>', array('class' => 'next disabled', 'tag' => 'li', 'escape' => false));
+                            ?>
+                        </ul>
+                    <?php } ?>
+                </small>
+            <?php } else {?>
+            <a href="<?php echo $data['url']?>">Xem thêm</a>
+            <?php } ?>
+        </small>
     </div>
     <div class="panel-body">
         <?php foreach ($data['products'] as $p): ?>
@@ -53,6 +72,26 @@
                 </div>
             </div>
         <?php endforeach; ?>
+        <?php if(isset($data['use_paginate'])){?>
+            <div class="row">
+                <div class="col-lg-12 m-b-30">
+                    <small class="pull-right">
+                        <?php
+                        $params = $this->Paginator->params();
+                        if ($params['pageCount'] > 1) {
+                            ?>
+                            <ul class="pagination pagination-sm">
+                                <?php
+                                echo $this->Paginator->prev('&larr; Previous', array('class' => 'prev', 'tag' => 'li', 'escape' => false), '<a onclick="return false;">&larr; Previous</a>', array('class' => 'prev disabled', 'tag' => 'li', 'escape' => false));
+                                echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentClass' => 'active', 'currentTag' => 'a'));
+                                echo $this->Paginator->next('Next &rarr;', array('class' => 'next', 'tag' => 'li', 'escape' => false), '<a onclick="return false;">Next &rarr;</a>', array('class' => 'next disabled', 'tag' => 'li', 'escape' => false));
+                                ?>
+                            </ul>
+                        <?php } ?>
+                    </small>
+                </div>
+            </div>
+        <?php } ?>
     </div>
 </div>
 <?php endif;?>
