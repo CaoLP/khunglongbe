@@ -45,6 +45,10 @@ class AppController extends Controller
     );
     public function beforeRender()
     {
+        $this->set('types', array(
+            0 => __('Hàng có sẵn'),
+            1 => __('Hàng order')
+        ));
         $this->set('statuses', array(
             1 => __('Active'),
             0 => __('Disable')

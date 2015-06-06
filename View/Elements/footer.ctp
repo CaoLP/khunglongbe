@@ -5,7 +5,7 @@
 </div>
 <div class="container-fluid" id="footer-info">
     <div class="container">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="footer-logo">
                 <?php echo $this->Html->image('logo_bottom.png',array('width'=>56, 'alt'=>Configure::read('Site.title')))?>
             </div>
@@ -21,10 +21,19 @@
                 </ul>
             </div>
         </div>
-        <div class="col-md-3">
-
+        <div class="col-md-4">
+            <div class="fb-page" data-href="https://www.facebook.com/khunglongbe.co"
+                 data-hide-cover="false"
+                 data-show-facepile="true"
+                 data-show-posts="false">
+                <div class="fb-xfbml-parse-ignore">
+                    <blockquote cite="https://www.facebook.com/khunglongbe.co">
+                        <a href="https://www.facebook.com/khunglongbe.co">Khủng long bé</a>
+                    </blockquote>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="fcol-03">
                 <h1 style="text-align: right">LIÊN HỆ</h1>
 

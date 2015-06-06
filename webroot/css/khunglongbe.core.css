@@ -602,10 +602,40 @@ header .price small{
     .fluidMedia{
         padding-bottom: 175%;
     }
+    .contact-form{
+        width: 100%;
+    }
+}
+.contact-form{
+    width: 60%;
+    margin: 0 auto;
+}
+.contact-form .error-message,.contact-form .required-message{
+    color: red;
+    margin-top: 5px;
+    display: none;
 }
 .btn-facebook{
     background-color: #3b5998;
 }
 .facebook-logo{
     color: #3b5998;
+}
+.carousel-caption{
+    display: none;
+}
+.product-type{
+    margin-top: 10px;
+}
+.fb-comments, .fb-comments iframe[style], .fb-like-box, .fb-like-box iframe[style] ,.fb-comments span:first-child{
+    width: 100% !important;
+}
+#target-comments{
+    overflow-y: auto;
+    height: 436px;
+}
+.fb-page,
+.fb-page span,
+.fb-page span iframe[style] {
+    width: 100% !important;
 }

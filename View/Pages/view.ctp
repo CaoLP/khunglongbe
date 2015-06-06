@@ -73,6 +73,7 @@
                             <div class="desc-line">
                                 <div></div>
                             </div>
+                            <div class="product-type"><strong><?php echo $types[$product['Product']['type']] ?></strong></div>
                             <div class="price-box m-top-10">
                                 <?php if (isset($product['Promote']['value'])) {
                                     echo '
@@ -169,6 +170,14 @@
                         </div>
                     </div>
                     <?php echo $this->Form->end();?>
+                    <div class="row m-top-10">
+                        <div
+                            class="fb-like"
+                            data-share="true"
+                            data-width="450"
+                            data-show-faces="true">
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -187,9 +196,19 @@
                         <div role="tabpanel" class="tab-pane fade in active" id="info">
                             <?php echo $product['Product']['descriptions'] ?>
                         </div>
-                        <div role="tabpanel" class="tab-pane fade" id="vote">..1.</div>
+                        <div role="tabpanel" class="tab-pane fade" id="vote">
+
+                        </div>
                     </div>
 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="fb-comments"
+                         data-href="<?php echo $this->Html->url($this->request->here,true); ?>"
+                         data-numposts="15" data-colorscheme="light">
+                    </div>
                 </div>
             </div>
         </div>

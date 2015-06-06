@@ -44,6 +44,7 @@
 </head>
 
 <body>
+<?php echo $this->element('facebook');?>
 <header class="container-fluid">
     <?php echo $this->element('header') ?>
 </header>

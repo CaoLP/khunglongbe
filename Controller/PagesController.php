@@ -373,8 +373,11 @@ class PagesController extends AppController
                 'Category.slug' => $category
             )
         ));
-        $allChildren = $this->Category->children($cat['Category']['id']);
-        $allChildren = Set::combine($allChildren,'{n}.Category.id','{n}.Category.id');
+        $allChildren = array();
+        if(isset($cat['Category']['id'])){
+            $allChildren = $this->Category->children($cat['Category']['id']);
+            $allChildren = Set::combine($allChildren,'{n}.Category.id','{n}.Category.id');
+        }
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
