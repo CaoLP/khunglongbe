@@ -37,6 +37,7 @@ header{
 }
 #sub-main{
     background-color: #fff;
+    position: relative;
 }
 #content{
     margin-top: 30px;
@@ -639,3 +640,52 @@ header .price small{
 .fb-page span iframe[style] {
     width: 100% !important;
 }
+
+
+
+#quickmenu {
+    position: absolute;
+    top: 45px;
+    width: 73px;
+    background: #fff;
+    z-index: 21;
+    right: -80px;
+}
+#quickmenu ul{
+    list-style-type: none;
+}
+/* quick */
+#quickmenu.fix {position:fixed;top:0;}
+#quickmenu.view {margin-left:477px;}
+#quickmenu .quicklist {background:#fcfcfc;border:1px solid #eeeeee;border-top:0;}
+#quickmenu .quicklist li {position:relative;border-top:1px solid #eeeeee;}
+#quickmenu .quicklist li a {display:block;width:71px;height:22px;padding-top:40px;font-size:11px;line-height:12px;color:#999999;text-align:center;background:url('../images/bg_quickmenu.png') no-repeat;}
+#quickmenu .quicklist li.cart a {background-position:0 0;}
+#quickmenu .quicklist li.wishlist a {background-position:0 -63px;}
+#quickmenu .quicklist li.coupon a {background-position:0 -126px;}
+#quickmenu .quicklist li.vipinfo a {padding-top:33px;height:29px;background-position:center -189px;}
+#quickmenu .quicklist li.proinfo a {background-position:center -239px;}
+#quickmenu .quicklist li .n {display:inline-block;position:absolute;left:36px;top:13px;width:22px;height:22px;font-family:tahoma;font-weight:bold;font-size:10px;color:#ffffff;line-height:22px;letter-spacing:-1px;background:url('../images/btn_rollingctrl.png') no-repeat -50px 0;}
+#quickmenu .quicklist li.cart .n {top:19px;background-position:-75px 0;}
+#quickmenu .quicklist li.vipinfo .n {top:10px;}
+#quickmenu .title {height:21px;text-align:center;line-height:21px;margin-top:0;padding-bottom:0;font-size:11px;font-weight:normal;color:#fff;background:#000;}
+#quickmenu .recentlyPrd {position:relative;padding:7px 9px 9px;background:#fcfcfc;border:1px solid #eeeeee;border-bottom:0;}
+#quickmenu .recentlyPrd .prdlist {overflow:hidden;position:relative;/*height:165px;*/}
+#quickmenu .recentlyPrd .prdlist ul {width:500px;}
+#quickmenu .recentlyPrd .prdlist li {float:left;}
+#quickmenu .recentlyPrd .prdlist li .li {padding-top:3px;}
+#quickmenu .recentlyPrd .prdlist img {width:50px;height:50px;border:1px solid #f3f3f3;}
+#quickPrdCtrl {/*position:absolute;left:0;bottom:9px;*/margin-top:8px;width:100%;text-align:center;}
+#quickPrdCtrl .prev {margin-right:2px;}
+#quickPrdCtrl2 {/*position:absolute;left:0;bottom:9px;*/margin-top:8px;width:100%;text-align:center;}
+#quickPrdCtrl2 .prev {margin-right:2px;}
+#quickmenu .btn_toggle {display:block;text-align:center;border:1px solid #eeeeee;}
+#quickmenu .btn_toggle a {display:block;}
+    #quickmenu .btn_toggle a span {display:inline-block;padding-top:1px;padding-right:9px;line-height:19px;font-size:11px;color:#666666;background:url('../images/btn_rollingctrl.png') no-repeat;}
+#quickmenu .btn_toggle .close span {background-position:26px -80px;}
+#quickmenu .btn_toggle .open span {background-position:-19px -80px}
+#quickmenu .btn_toggle .close {display:none;}
+#quickmenu .btn_toggle.show .close {display:block;}
+#quickmenu .btn_toggle.show .open {display:none;}
+#quickmenu .btn_top {display:block;}
+#quickmenu .btn_top a {display:block;height:14px;padding-top:6px;text-align:center;border:1px solid #eeeeee;border-top:0;}
