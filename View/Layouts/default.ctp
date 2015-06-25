@@ -62,6 +62,7 @@
 
                 <div id="recentlyPrd" class="recentlyPrd">
                     <div class="prdlist">
+                        <a href="http://www.aritaum.com/prod/productList?CATE1CD=PRD1CATE02">sample</a>
 <!--                        <ul id="testDiv"><li><div class="li"><a href="/noleft/leftNonProductDetail?PRDID=P0000000000000002267"><img src="/upload//images/adm/items/2015/03/b050761e-4a86-4d48-90d5-b3f15aee3527" alt="" style="width:52px;height:52px;"></a></div></li></ul>-->
                     </div>
 
