@@ -56,26 +56,9 @@ class PagesController extends AppController
         $products = $this->Product->getProduct('Rand()', 8);
         $this->set(compact('best_sale', 'new_products', 'promote_products', 'products'));
     }
-
-    public function loadCategory()
-    {
-        $this->loadModel('Category');
-        $categories = $this->Category->find('threaded',
-            array(
-                'fields' => array('id', 'name', 'slug', 'parent_id'),
-                'conditions' => array(
-                    'Category.name <>' => '0',
-                    'Category.status' => '1',
-                ),
-                'recursive' => -1
-            )
-        );
-        $this->set(compact('categories'));
-    }
-
     public function view($category = null, $slug = null)
     {
-        $this->loadCategory();
+        
         $this->loadModel('Product');
         $product = $this->Product->getProductDetails($category, $slug);
         $this->set(compact('product'));

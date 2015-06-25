@@ -53,6 +53,7 @@ class AppController extends Controller
             1 => __('Active'),
             0 => __('Disable')
         ));
+        $this->loadCategory();
         //sample
     }
     public function canUploadMedias($model, $id){
@@ -64,5 +65,20 @@ class AppController extends Controller
     }
     public function setTitle($title){
         $this->set('title_for_layout',$title);
+    }
+    public function loadCategory()
+    {
+        $this->loadModel('Category');
+        $categories = $this->Category->find('threaded',
+            array(
+                'fields' => array('id', 'name', 'slug', 'parent_id'),
+                'conditions' => array(
+                    'Category.name <>' => '0',
+                    'Category.status' => '1',
+                ),
+                'recursive' => -1
+            )
+        );
+        $this->set(compact('categories'));
     }
 }

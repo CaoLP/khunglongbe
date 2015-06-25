@@ -44,43 +44,41 @@
 
 <body>
 <?php echo $this->element('facebook');?>
-<header class="container-fluid">
+<header>
     <?php echo $this->element('header') ?>
 </header>
-<div class="container-fluid" id="main">
-    <div class="container" id="sub-main">
-        <div id="quickmenu" class="quickmenu">
-            <div class="quickIn">
-                <ul class="quicklist">
-                    <li class="cart"><a href="#none" onclick="javascript:fn_ShoppingBag();return false;">장바구니 <span class="n"><div id="myShoppingBag">0</div></span></a></li>
-                    <li class="wishlist"><a href="#none" onclick="javascript:fn_goWish();return false;">위시리스트 <span id="wishCount" class="n">0</span></a></li>
-                    <li class="coupon"><a href="#none" onclick="javascript:fn_goCoupon();return false;">내 쿠폰함 <span id="myCoupon" class="n">0</span></a></li>
-                    <li class="vipinfo"><a href="/member/vipInfo">VIP/VVIP<br>안내</a></li>
-                    <li class="proinfo"><a href="/event/eventList">이벤트</a></li>
-                </ul>
-                <h4 class="title">오늘본상품</h4>
+<div class="container" id="sub-main">
+    <div id="quickmenu" class="quickmenu">
+        <div class="quickIn">
+            <ul class="quicklist">
+                <li class="cart"><a href="#none" onclick="javascript:fn_ShoppingBag();return false;">장바구니 <span class="n"><div id="myShoppingBag">0</div></span></a></li>
+                <li class="wishlist"><a href="#none" onclick="javascript:fn_goWish();return false;">위시리스트 <span id="wishCount" class="n">0</span></a></li>
+                <li class="coupon"><a href="#none" onclick="javascript:fn_goCoupon();return false;">내 쿠폰함 <span id="myCoupon" class="n">0</span></a></li>
+                <li class="vipinfo"><a href="/member/vipInfo">VIP/VVIP<br>안내</a></li>
+                <li class="proinfo"><a href="/event/eventList">이벤트</a></li>
+            </ul>
+            <h4 class="title">오늘본상품</h4>
 
-                <div id="recentlyPrd" class="recentlyPrd">
-                    <div class="prdlist">
-                        <a href="http://www.aritaum.com/prod/productList?CATE1CD=PRD1CATE02">sample</a>
-<!--                        <ul id="testDiv"><li><div class="li"><a href="/noleft/leftNonProductDetail?PRDID=P0000000000000002267"><img src="/upload//images/adm/items/2015/03/b050761e-4a86-4d48-90d5-b3f15aee3527" alt="" style="width:52px;height:52px;"></a></div></li></ul>-->
-                    </div>
-
+            <div id="recentlyPrd" class="recentlyPrd">
+                <div class="prdlist">
+                    <a href="http://www.aritaum.com/prod/productList?CATE1CD=PRD1CATE02">sample</a>
+                    <!--                        <ul id="testDiv"><li><div class="li"><a href="/noleft/leftNonProductDetail?PRDID=P0000000000000002267"><img src="/upload//images/adm/items/2015/03/b050761e-4a86-4d48-90d5-b3f15aee3527" alt="" style="width:52px;height:52px;"></a></div></li></ul>-->
                 </div>
-            </div>
-            <div class="btn_toggle show"><a href="#none" class="close"><span>닫기</span></a><a href="#none" class="open"><span>열기</span></a>
-            </div>
-            <div class="btn_top"><a href="#none" onclick="goTop();return false;"><img src="<?php echo $this->Html->url('/img/txt_quick_top.gif')?>" alt="TOP"></a></div>
-        </div>
-        <?php echo $this->element('category_menu'); ?>
-        <div class="container">
-            <div class="row">
-                <?php echo $this->element('slide'); ?>
-            </div>
-            <div class="row" id="content">
-                <?php echo $this->fetch('content') ?>
+
             </div>
         </div>
+        <div class="btn_toggle show"><a href="#none" class="close"><span>닫기</span></a><a href="#none" class="open"><span>열기</span></a>
+        </div>
+        <div class="btn_top"><a href="#none" onclick="goTop();return false;"><img src="<?php echo $this->Html->url('/img/txt_quick_top.gif')?>" alt="TOP"></a></div>
+    </div>
+    <?php echo $this->element('category_menu'); ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo $this->element('slide'); ?>
+        </div>
+    </div>
+    <div class="row" id="content">
+        <?php echo $this->fetch('content') ?>
     </div>
 </div>
 <footer>

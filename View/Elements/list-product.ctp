@@ -25,7 +25,7 @@
     </div>
     <div class="panel-body">
         <?php foreach ($data['products'] as $p): ?>
-            <div class="col-xs-6 col-md-3 item">
+            <div class="col-xs-6 col-md-4 item">
                 <div class="thumbnail">
                     <a href="<?php
                     echo $this->Html->url(
