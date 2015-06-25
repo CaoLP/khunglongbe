@@ -10,12 +10,13 @@
 
         </div>
         <div class="navbar-collapse navbar-collapse-cat collapse ">
-
             <!-- Left nav -->
             <ul class="nav nav-pills navbar-nav navbar-center">
+                <li>
+                    <a href="#"><i class="fa fa-bars"></i></a>
+                </li>
                <?php echo $this->Menu->loadCategory($categories, 'Category','children', false);?>
             </ul>
-
         </div>
         <!--/.nav-collapse -->
     </div>

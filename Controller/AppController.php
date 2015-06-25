@@ -41,7 +41,7 @@ class AppController extends Controller
 //                ),
 //            )
 //        ),
-        'DebugKit.Toolbar'
+//        'DebugKit.Toolbar'
     );
     public function beforeRender()
     {

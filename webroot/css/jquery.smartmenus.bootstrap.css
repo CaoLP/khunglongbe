@@ -96,6 +96,6 @@
     right:auto;
 }
 /* The following will make the sub menus collapsible for small screen devices (it's not recommended editing these) */
-.navbar-nav .collapsible ul {display:none;position:static !important;top:auto !important;left:auto !important;margin-left:0 !important;margin-top:0 !important;width:auto !important;min-width:0 !important;max-width:none !important;}
+.navbar-nav .collapsible ul {display:none;/*position:static !important;*/top:auto !important;left:auto !important;margin-left:0 !important;margin-top:0 !important;width:auto !important;min-width:0 !important;max-width:none !important;}
 .navbar-nav .collapsible ul.sm-nowrap > li > a {white-space:normal;}
 .navbar-nav .collapsible iframe{display:none;}

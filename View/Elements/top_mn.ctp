@@ -54,14 +54,13 @@
                         }
 
                     ?>
+
                     <li class="dropdown" id="cart">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <div class="price pull-left">
-                                <i class="fa fa-shopping-cart"> </i>
                                 <?php echo $this->App->format_cart_money($total); ?>
-                                <div class="cart-count"><?php echo count($cart); ?></div>
                             </div>
-
+                            <i class="fa fa-shopping-cart">(<?php echo count($cart); ?>)</i>
                         </a>
                         <ul class="dropdown-menu dropdown-cart" role="menu">
                             <?php echo $html_cart; ?>
@@ -70,7 +69,7 @@
                                     'controller' => 'pages',
                                     'action' => 'cart'
                                 ));
-                                ?>">Thanh toán</a></li>
+                                ?>">Thanh to?n</a></li>
                         </ul>
                     </li>
                 </ul>

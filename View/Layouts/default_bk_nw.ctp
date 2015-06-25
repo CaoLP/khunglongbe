@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>
-        <?php echo Configure::read('Site.title') . ' - ' . $title_for_layout ; ?>
+        <?php echo $title_for_layout . ' - ' . Configure::read('Site.title'); ?>
     </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +47,7 @@
 <header class="container-fluid">
     <?php echo $this->element('header') ?>
 </header>
+<?php echo $this->element('top_menu'); ?>
 <div class="container-fluid" id="main">
     <div class="container" id="sub-main">
         <div id="quickmenu" class="quickmenu">
@@ -62,7 +63,7 @@
 
                 <div id="recentlyPrd" class="recentlyPrd">
                     <div class="prdlist">
-<!--                        <ul id="testDiv"><li><div class="li"><a href="/noleft/leftNonProductDetail?PRDID=P0000000000000002267"><img src="/upload//images/adm/items/2015/03/b050761e-4a86-4d48-90d5-b3f15aee3527" alt="" style="width:52px;height:52px;"></a></div></li></ul>-->
+                        <ul id="testDiv"><li><div class="li"><a href="/noleft/leftNonProductDetail?PRDID=P0000000000000002267"><img src="/upload//images/adm/items/2015/03/b050761e-4a86-4d48-90d5-b3f15aee3527" alt="" style="width:52px;height:52px;"></a></div></li></ul>
                     </div>
 
                 </div>
@@ -72,13 +73,11 @@
             <div class="btn_top"><a href="#none" onclick="goTop();return false;"><img src="<?php echo $this->Html->url('/img/txt_quick_top.gif')?>" alt="TOP"></a></div>
         </div>
         <?php echo $this->element('category_menu'); ?>
-        <div class="container">
-            <div class="row">
-                <?php echo $this->element('slide'); ?>
-            </div>
-            <div class="row" id="content">
-                <?php echo $this->fetch('content') ?>
-            </div>
+        <div class="row">
+            <?php echo $this->element('slide'); ?>
+        </div>
+        <div class="row" id="content">
+            <?php echo $this->fetch('content') ?>
         </div>
     </div>
 </div>

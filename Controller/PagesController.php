@@ -345,7 +345,6 @@ class PagesController extends AppController
                 }
             }
         }
-        $this->view = 'order_complete';
     }
 
     public function news($slug = null)
