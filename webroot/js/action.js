@@ -1,5 +1,12 @@
 $(function () {
     $.ajaxSetup({cache:false});
+    $('.carousel').carousel({
+        interval: 10000
+    })
+
+    $('#myCarousel').on('slid.bs.carousel', function() {
+        //alert("slid");
+    });
     $(".share-popup").click(function () {
         var window_size = "";
         var url = this.href;

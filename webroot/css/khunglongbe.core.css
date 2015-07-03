@@ -160,3 +160,38 @@
 #quickmenu .btn_toggle.show .open {display:none;}
 #quickmenu .btn_top {display:block;}
 #quickmenu .btn_top a {display:block;height:14px;padding-top:6px;text-align:center;border:1px solid #eeeeee;border-top:0;}
+
+.carousel-inner .img {
+    padding: 45px;
+}
+.carousel-control .fa{
+    color: #000;
+    padding: 15px;
+    font-size: 35px;
+    background-color: transparent;
+}
+.p-item{
+    color: #333333;
+    text-align: center;
+}
+.p-item .brdname {
+    display: block;
+    margin: 0 auto;
+}
+.p-item .prdname {
+    display: block;
+    margin: 1px auto 0;
+    color: #333333;
+    line-height: 16px;
+    word-break: break-all;
+}
+.p-item .price {
+    display: block;
+    margin-top: 4px;
+}
+.p-item .price .default {
+    display: inline-block;
+    margin-right: 3px;
+    color: #999999;
+    text-decoration: line-through;
+}

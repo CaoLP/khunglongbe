@@ -73,9 +73,7 @@
     </div>
     <?php echo $this->element('category_menu'); ?>
     <div class="row">
-        <div class="col-md-12">
-            <?php echo $this->element('slide'); ?>
-        </div>
+        <?php echo $this->element('slide'); ?>
     </div>
     <div class="row" id="content">
         <?php echo $this->fetch('content') ?>
