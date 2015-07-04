@@ -39,7 +39,7 @@ if (count($cart) > 0)
                 </tr>";
     }
 ?>
-<div class="col-md-12" id="p-content">
+<div class="col-md-10" id="p-content">
     <?php echo $this->Form->create('Order', array('role' => 'form', 'onsubmit' => 'return validateForm(this)')); ?>
     <div class="col-lg-7">
         <div class="panel panel-pink">

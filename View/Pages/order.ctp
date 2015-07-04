@@ -1,6 +1,3 @@
-<div class="col-md-2" id="side">
-    <?php echo $this->element('sidebar');?>
-</div>
 <div class="col-md-10" id="p-content">
     <?php for ($i = 0; $i < 5; $i++): ?>
         <div class="panel">

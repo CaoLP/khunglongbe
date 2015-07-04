@@ -1,4 +1,4 @@
-<div class="col-md-12" id="p-content">
+<div class="col-md-10" id="p-content">
 <?php
 echo $this->element(
     'slide-product',

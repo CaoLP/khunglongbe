@@ -41,8 +41,9 @@ class AppController extends Controller
 //                ),
 //            )
 //        ),
-//        'DebugKit.Toolbar'
+        'DebugKit.Toolbar'
     );
+    public $uses = array('Provider','Category','Product');
     public function beforeRender()
     {
         $this->set('types', array(
@@ -54,6 +55,8 @@ class AppController extends Controller
             0 => __('Disable')
         ));
         $this->loadCategory();
+        $this->getProviders();
+
         //sample
     }
     public function canUploadMedias($model, $id){
@@ -68,7 +71,6 @@ class AppController extends Controller
     }
     public function loadCategory()
     {
-        $this->loadModel('Category');
         $categories = $this->Category->find('threaded',
             array(
                 'fields' => array('id', 'name', 'slug', 'parent_id'),
@@ -80,5 +82,11 @@ class AppController extends Controller
             )
         );
         $this->set(compact('categories'));
+    }
+
+    function getProviders(){
+        $providers = $this->Provider->get_listProviders();
+        $providers = Set::combine($providers,'{n}.Provider.id','{n}.Provider');
+        $this->set(compact('providers'));
     }
 }

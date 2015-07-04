@@ -1,4 +1,4 @@
-<div class="col-md-12" id="p-content">
+<div class="col-md-10" id="p-content">
     <div class="panel">
         <div class="order-success"></div>
         <div class="panel-heading has-icon">ĐẶT HÀNG THÀNH CÔNG</small>

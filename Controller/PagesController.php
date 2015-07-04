@@ -38,7 +38,6 @@ class PagesController extends AppController
     public function index()
     {
         $this->setTitle('Trang chủ');
-        $this->loadCategory();
         $best_sale = array();
         $new_products = array();
         $promote_products = array();
@@ -58,7 +57,7 @@ class PagesController extends AppController
     }
     public function view($category = null, $slug = null)
     {
-        
+        $this->layout = 'view';
         $this->loadModel('Product');
         $product = $this->Product->getProductDetails($category, $slug);
         $this->set(compact('product'));
@@ -76,8 +75,6 @@ class PagesController extends AppController
 
     public function products($slug = null)
     {
-        $this->loadCategory();
-        $this->loadModel('Product');
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
@@ -118,8 +115,6 @@ class PagesController extends AppController
         if(isset($this->request->query['q'])){
             $q = $this->request->query['q'];
         }
-        $this->loadCategory();
-        $this->loadModel('Product');
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
@@ -159,7 +154,6 @@ class PagesController extends AppController
     public function promotes($id = null)
     {
         $this->loadModel('Promote');
-
         if ($this->request->is('ajax')) {
             $this->layout = 'ajax';
             $this->view = 'ajax_slide';
@@ -203,6 +197,7 @@ class PagesController extends AppController
 
     public function cart()
     {
+        $this->layout = 'view';
         $this->setTitle('Giỏ hàng');
 //        $this->Session->delete('Shop.cart');
         if ($this->request->isAjax()) {
@@ -347,8 +342,6 @@ class PagesController extends AppController
 
     public function categories($category = null)
     {
-        $this->loadCategory();
-        $this->loadModel('Product');
         $this->loadModel('Category');
         $cat = $this->Category->find('first',array(
             'conditions' =>array(
@@ -402,7 +395,6 @@ class PagesController extends AppController
     public function best_sale()
     {
         $this->setTitle('Sản phẩm bán chạy');
-        $this->loadCategory();
         $this->loadModel('OrderDetail');
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,Thumb.*, SUM(OrderDetail.qty) as total',
@@ -435,8 +427,6 @@ class PagesController extends AppController
     public function new_products()
     {
         $this->setTitle('Sản phẩm mới');
-        $this->loadCategory();
-        $this->loadModel('Product');
         $this->Paginator->settings = array(
             'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
             'conditions' => array(
@@ -474,7 +464,6 @@ class PagesController extends AppController
     public function promote_products()
     {
         $this->setTitle('Sản phẩm khuyến mãi');
-        $this->loadCategory();
         $this->loadModel('ProductPromote');
         $this->Paginator->settings = array(
             'fields' => 'Product.*, Promote.*, Category.*,Thumb.*',
@@ -505,5 +494,55 @@ class PagesController extends AppController
         );
         $products = $this->Paginator->paginate('ProductPromote');
         $this->set(compact('products'));
+    }
+    public function providers($slug)
+    {
+        $provider = $this->Provider->find('first',array(
+            'conditions' =>array(
+                'Provider.slug' => $slug
+            ),
+            'recursive' => -1
+        ));
+        $provider_id = 0;
+        if(isset($provider['Provider']['id'])){
+            $provider_id = $provider['Provider']['id'];
+        }
+        $this->Paginator->settings = array(
+            'fields' => 'Product.*,Category.*,ProductPromote.*,Promote.*,Thumb.file',
+            'conditions' => array(
+                'NOT' => array(
+                    'Product.name' => array('0', ''),
+                ),
+                'Product.provider_id' => $provider_id
+            ),
+            'joins' => array(
+                array(
+                    'table' => 'product_promotes',
+                    'alias' => 'ProductPromote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'Product.id = ProductPromote.product_id'
+                    )
+                ),
+                array(
+                    'table' => 'promotes',
+                    'alias' => 'Promote',
+                    'type' => 'LEFT',
+                    'conditions' => array(
+                        'ProductPromote.promote_id = Promote.id',
+                        'Promote.begin <=' => date('Y-m-d H:i:s'),
+                        'Promote.end >=' => date('Y-m-d H:i:s'),
+                    )
+                )
+            ),
+            'order' => array('Product.created DESC'),
+            'limit' => Configure::read('Page.limit')
+        );
+        $products = $this->Paginator->paginate('Product');
+        $this->set(compact('products'));
+        if($provider_id != 0)
+            $this->setTitle($provider['Provider']['name']);
+        else
+            $this->setTitle('Sản phẩm');
     }
 }

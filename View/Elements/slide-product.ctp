@@ -1,9 +1,11 @@
 <?php if (isset($data['products']) && count($data['products'])): ?>
-    <div class="panel">
+    <div class="panel slide-item">
         <div class="<?php echo $data['class'] ?>"></div>
-        <div class="panel-heading has-icon"><a href="<?php echo $data['url'] ?>"><?php echo $data['title'] ?></a>
+        <div class="panel-heading has-icon">
+            <a href="<?php echo $data['url'] ?>"><?php echo $data['title'] ?></a>
+            <hr>
             <small class="pull-right">
-                <a href="<?php echo $data['url'] ?>">Xem thêm</a>
+                <a href="<?php echo $data['url'] ?>">Xem tất cã</a>
             </small>
         </div>
         <div class="panel-body">
@@ -31,7 +33,16 @@
                             <?php } ?>
                             <div class="col-xs-<?php echo $col; ?> p-item">
                                 <div class="img">
-                                    <a href="#x">
+                                    <a href="<?php
+                                    echo $this->Html->url(
+                                        array(
+                                            'controller' => 'pages',
+                                            'action' => 'view',
+                                            'category' => $p['Category']['slug'],
+                                            'slug' => $p['Product']['slug'],
+                                        )
+                                    )
+                                    ?>">
                                         <?php echo $this->Media->image(
                                             $p['Thumb']['file'],
                                             $data['img_w'],
@@ -39,7 +50,15 @@
                                             array('class' => 'img-responsive')); ?>
                                     </a>
                                 </div>
-                                <span class="brdname">[아이오페]</span>
+                                <span class="brdname"><?php
+                                        if(isset($providers[$p['Product']['provider_id']])){
+                                            echo $this->Html->image(
+                                                Configure::read('Img.path')
+                                                .$providers[$p['Product']['provider_id']]['thumb'],
+                                                array('height'=>'35')
+                                            );
+                                        }
+                                    ?></span>
                                 <span class="prdname"> <?php echo $p['Product']['name']; ?></span>
                                 <span class="price">
                                     <?php

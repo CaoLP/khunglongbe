@@ -13,14 +13,20 @@ class MediaBehavior extends ModelBehavior
 
     public function setup(Model $model, $config = array())
     {
-        $model->medias = array_merge($this->options, $config);
-        $model->hasMany['Media'] = array(
-            'className' => 'Media',
-            'foreignKey' => 'ref_id',
-            'order' => 'Media.position ASC',
-            'conditions' => 'ref = "' . $model->name . '"',
-            'dependent' => true
-        );
+        if(!isset($config['remove_hasMany'])){
+            $model->medias = array_merge($this->options, $config);
+            $model->hasMany['Media'] = array(
+                'className' => 'Media',
+                'foreignKey' => 'ref_id',
+                'order' => 'Media.position ASC',
+                'conditions' => 'ref = "' . $model->name . '"',
+                'dependent' => true
+            );
+        }else{
+            unset($config['remove_hasMany']);
+            $model->medias = array_merge($this->options, $config);
+        }
+
         if ($model->hasField('media_id')) {
             $model->belongsTo['Thumb'] = array(
                 'className' => 'Media',

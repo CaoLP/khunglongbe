@@ -1,4 +1,4 @@
-<div class="col-md-12" id="p-content">
+<div class="col-md-10" id="p-content">
         <div class="panel">
             <div class="panel-heading">
                 KHUYẾN MÃI

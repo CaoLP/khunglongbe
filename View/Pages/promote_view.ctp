@@ -1,4 +1,4 @@
-<div class="col-md-12" id="p-content">
+<div class="col-md-10" id="p-content">
     <div class="panel promote">
         <div class="panel-heading">
             KHUYẾN MÃI <?php echo $promote['Promote']['name']?>

@@ -76,9 +76,6 @@
         <?php echo $this->element('slide'); ?>
     </div>
     <div class="row" id="content">
-        <div class="col-md-2" id="left-side-bar">
-            <?php echo $this->element('sidebar');?>
-        </div>
         <?php echo $this->fetch('content') ?>
     </div>
 </div>

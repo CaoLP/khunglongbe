@@ -152,7 +152,7 @@ class MediaHelper extends AppHelper
                         return false;
                 }
             }
-            $output = Configure::read('Img.path') . $output;
+                $output = Configure::read('Img.path') . $output;
         } else {
             $output = Configure::read('Img.noImage');
         }

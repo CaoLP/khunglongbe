@@ -1,7 +1,4 @@
-<div class="col-md-2" id="side">
-    <?php echo $this->element('sidebar'); ?>
-</div>
-<div class="col-md-10" id="p-content">
+<div class="col-md-12" id="p-content">
     <div class="panel">
         <div class="panel-heading"><?php echo $product['Product']['name'] ?>
             <small class="pull-right"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php
