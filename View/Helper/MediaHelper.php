@@ -58,8 +58,10 @@ class MediaHelper extends AppHelper
      */
     public function image($image, $width, $height, $options = array(), $quality = 100)
     {
-        $options['width'] = $width;
-        $options['height'] = $height;
+        if (!isset($options['disable_size'])) {
+            $options['width'] = $width;
+            $options['height'] = $height;
+        }else unset($options['disable_size']);
         return $this->Html->image($this->resizedUrl($image, $width, $height, $quality), $options);
     }
 

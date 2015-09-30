@@ -33,4 +33,8 @@ class AppHelper extends Helper {
         $price = $price - ($price * ($promote/100));
         return '<span>'.number_format($price, 0, '.', ',</span><span>').' VND</span>';
     }
+    public function format_money_normal($price, $promote = 0){
+        $price = $price - ($price * ($promote/100));
+        return number_format($price, 0, '.', ',');
+    }
 }

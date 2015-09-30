@@ -152,3 +152,13 @@ var validateForm = function (form) {
         return false;
     }
 };
+function prcChange2(number){
+    var newTotal = parseInt($('#qty').val()) + number;
+    var bPrice = $('#b-price').data('price');
+    if(newTotal < 1) newTotal = 1;
+        $('.p-qty').val(newTotal);
+    $('#totalPrcDiv').text(digits(bPrice * newTotal));
+}
+function digits(number) {
+    return number.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+}

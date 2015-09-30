@@ -333,6 +333,35 @@ class PagesController extends AppController
     public function blogs($slug = null)
     {
         $this->setTitle('Blog');
+        $this->loadModel('PostCategory');
+        $this->loadModel('Post');
+        $blog_cat = $this->PostCategory->find('first',
+            array(
+                'conditions'=>array('PostCategory.slug' => $slug),
+                'recursive' => -1
+            ));
+        if($blog_cat) {
+            $this->setTitle($blog_cat['PostCategory']['name']);
+            $this->Paginator->settings = array(
+                'fields'=> array('Post.title,Post.slug,Post.excert,Post.created,Post.media_id'),
+                'conditions'=> array(
+                    'Post.post_category_id' => $blog_cat['PostCategory']['id']
+                )
+            );
+            $posts = $this->Paginator->paginate('Post');
+            $this->set(compact('posts'));
+            $this->set(compact('blog_cat'));
+        }else{
+            $post = $this->Post->find('first', array(
+                'Post.slug' => $slug
+            ));
+            if($post){
+                $this->setTitle($post['Post']['title']);
+                $this->set(compact('post'));
+                $this->view = 'post_detail';
+            }
+        }
+        $this->layout = 'blogs';
     }
 
     public function contact()

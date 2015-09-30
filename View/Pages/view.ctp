@@ -1,6 +1,11 @@
+<?php
+echo $this->Html->script(array('jquery.etalage.min.js','view.js'),array('inline'=>false));
+echo $this->Html->css(array('etalage.css'),array('inline'=>false));
+?>
 <div class="col-md-12" id="p-content">
-    <div class="panel">
-        <div class="panel-heading"><?php echo $product['Product']['name'] ?>
+    <div class="panel productDetail">
+        <div class="panel-heading">
+            <h2><?php echo $product['Product']['name'] ?>
             <small class="pull-right"><a href="https://www.facebook.com/sharer/sharer.php?u=<?php
                 echo $this->Html->url(
                     array(
@@ -13,30 +18,36 @@
                 ?>&t=<?php echo $product['Product']['name'];?>"
                 class="share-popup"
                 target="_blank" title="Share on Facebook">Chia sẻ</a></small>
+            </h2>
+            <p class="des">
+                <?php echo $product['Product']['excert'] ?>
+            </p>
         </div>
         <div class="panel-body prod-detail">
-            <div class="row">
+            <div class="row detail">
                 <div class="col-md-4 text-center">
-                    <div class="row">
-                        <div class="col-lg-12 preview-item">
-                            <img src="<?php
-                            if (isset($product['Thumb']['file']))
-                                echo Configure::read('Img.path') . $product['Thumb']['file'];
-                            else echo Configure::read('Img.noImage')
-                            ?>" class="thumbnail image-item img-responsive">
+                    <div class="row m-top-10">
+                        <div
+                            class="fb-like"
+                            data-share="true"
+                            data-width="450"
+                            data-show-faces="true">
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-12 gallery-item-list">
-                            <?php foreach ($product['Media'] as $media) { ?>
-                                <div class="thumbnail image-item">
-                                    <img src="<?php echo Configure::read('Img.path') . $media['file']; ?>" class="">
-                                </div>
-                            <?php } ?>
+                        <div class="col-lg-12 preview-item">
+                            <ul id="etalage">
+                                <?php foreach ($product['Media'] as $media) { ?>
+                                    <li>
+                                        <?php echo $this->Media->image($media['file'], 302, 402, array('class'=>'etalage_thumb_image img-responsive', 'disable_size'=>true)); ?>
+                                        <img src="<?php echo Configure::read('Img.path') . $media['file']; ?>" class="etalage_source_image img-responsive">
+                                    </li>
+                                <?php } ?>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-6 summaryinfo">
                     <?php echo $this->Form->create('OrderDetail',array('id'=>'OrderDetailViewForm','url'=> $this->Html->url(
                             array(
                                 'controller' => 'pages',
@@ -64,91 +75,67 @@
                         )
                     );
                     ?>
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="desc"><strong><?php echo $product['Product']['excert'] ?></strong></div>
-                            <div class="desc-line">
-                                <div></div>
-                            </div>
-                            <div class="product-type"><strong><?php echo $types[$product['Product']['type']] ?></strong></div>
-                            <div class="price-box m-top-10">
-                                <?php if (isset($product['Promote']['value'])) {
-                                    echo '
-                                <div class="bg2">
-                                    <ul class="price">
-                                       ' . $this->App->format_detail_money($product['Product']['price'],$product['Promote']['value']) . '
-                                    </ul>
-                                     <ul class="price2">
-                                       ' . $this->App->format_detail_money($product['Product']['price']) . '
-                                    </ul>
-                                </div>';
-                                }else{
-                                    echo '
-                                <div class="bg1">
-                                    <ul class="price">
-                                       ' . $this->App->format_detail_money($product['Product']['price']) . '
-                                    </ul>
-                                </div>';
-                                }
+                    <dl>
+                        <dt class="col-xs-4">Giá</dt>
+                        <dd class="col-xs-8">
+                            <?php if (isset($product['Promote']['value'])) {
+                                $price = $product['Product']['price'] - ($product['Product']['price'] * ($product['Promote']['value']/100))
                                 ?>
-
-                            </div>
-                            <div class="props-box m-top-10">
-                                <table>
-                                    <tbody>
-                                    <?php
-                                    foreach($options as $key=>$option){
-                                        echo "<tr>";
-                                        echo " <td><span class=\"prop-name\">{$key}</span></td>";
-                                        echo "<td>:</td>";
-                                        if(count($option) <= 1){
-                                            foreach($option as $op){
-                                                echo "<td><span class=\"prop-val\">{$op['name']}</span></td>";
+                                <strong class="old-price"><?php echo $this->App->format_money_normal($product['Product']['price'])?></strong>
+                                <strong class="c-pink" id="b-price" data-price="<?php echo $price;?>"><?php echo $this->App->format_money_normal($price)?></strong> VNĐ
+                            <?php } else {
+                                $price = $product['Product']['price'];
+                                ?>
+                                <strong class="c-pink" id="b-price" data-price="<?php echo $price;?>"><?php echo $this->App->format_money_normal($price)?></strong> VNĐ
+                            <?php }?>
+                        </dd>
+                    </dl>
+                    <?php
+                    foreach($options as $key=>$option){
+                        echo "<dl>";
+                        echo " <dt class=\"col-xs-4\"><span class=\"prop-name\">{$key}</span></dt>";
+                        if(count($option) <= 1){
+                            foreach($option as $op){
+                                echo "<dd class=\"col-xs-8\"><span class=\"prop-val\">{$op['name']}</span></dd>";
 //                                                echo $this->Form->input('options.',array('type'=>'hidden','value'=>$op['id'].'-'.$op['name'], 'div'=>false,'label'=>false));
-                                            }
-                                        }else{
-                                            $temp = array();
-                                            foreach($option as $each){
-                                                $each['group_name'] = $key;
-                                                $temp[] = $each;
-                                            }
-                                            echo "<td><span class=\"prop-val\">";
-                                            $ops = Set::combine($temp,array('{0}|{1}: {2}','{n}.id','{n}.group_name','{n}.name'),'{n}.name');
-                                            echo $this->Form->input('options.',array('options'=>$ops, 'div'=>false,'label'=>false));
-                                            echo "</span></td>";
-                                        }
-                                        echo "</tr>";
-                                    }
-                                    ?>
-                                    <tr>
-                                        <td><span class="prop-name">Số lượng</span></td>
-                                        <td>:</td>
-                                        <td><span class="prop-val"><?php echo $this->Form->input('qty',array(
-                                                    'value'=>'1','data-type'=>'number','class'=>'border-1 qty','div'=>false,'label'=>false,'min'=> 1
-                                                    )
-                                                );?></span></td>
-                                    </tr>
-<!--                                    <tr>-->
-<!--                                        <td><span class="prop-name">Đánh giá</span></td>-->
-<!--                                        <td>:</td>-->
-<!--                                        <td>-->
-<!--                                            <ul class="rating">-->
-<!--                                                <li></li>-->
-<!--                                                <li></li>-->
-<!--                                                <li></li>-->
-<!--                                                <li class="dark"></li>-->
-<!--                                                <li class="dark"></li>-->
-<!--                                            </ul>-->
-<!--                                            <span class="rating-val">(0)</span>-->
-<!--                                        </td>-->
-<!--                                    </tr>-->
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="ym-clearfix"></div>
+                            }
+                        }else{
+                            $temp = array();
+                            foreach($option as $each){
+                                $each['group_name'] = $key;
+                                $temp[] = $each;
+                            }
+                            echo "<dd class=\"col-xs-8\"><span class=\"prop-val\">";
+                            $ops = Set::combine($temp,array('{0}|{1}: {2}','{n}.id','{n}.group_name','{n}.name'),'{n}.name');
+                            echo $this->Form->input('options.',array('options'=>$ops, 'div'=>false,'label'=>false));
+                            echo "</span></dd>";
+                        }
+                        echo "</dl>";
+                    }
+                    ?>
+                    <dl class="qty">
+                        <dt class="col-xs-4">Số lượng</dt>
+                        <dd class="col-xs-8">
+                            <span class="select-qty">
+                                <button type="button" class="minus" onclick="prcChange2(-1); return false;"><i class="fa fa-minus"></i></button>
+                                <?php echo $this->Form->input('qty',array(
+                                        'value'=>'1','readonly','data-type'=>'number','id'=>'qty','class'=>'p-qty','div'=>false,'label'=>false,'min'=> 1
+                                    )
+                                );?>
+                                <button type="button" class="plus" onclick="prcChange2(1); return false;"><i class="fa fa-plus"></i></button>
+                            </span>
+                        </dd>
+                    </dl>
+                    <div class="total">
+                        <strong class="t col-xs-4">Tổng cộng</strong>
+                        <div class="col-xs-8">
+                            <em id="totalPrcDiv">
+                                <?php echo $this->App->format_money_normal($price)?>
+                            </em>
+                            <small>VNĐ</small>
                         </div>
                     </div>
-                    <div class="row m-top-10">
+                    <div class="row btnwrap">
                         <div class="col-lg-12 text-center">
                             <a href="javascript:;" class="btn btn-sm btn-bink buy">Mua</a>
                             <a href="javascript:;" class="btn btn-sm btn-bink add-cart">Cho vào giỏ</a>
@@ -163,18 +150,21 @@
                             );
                             ?>&t=<?php echo $product['Product']['name'];?>"
                                target="_blank" title="Share on Facebook"
-                               class="btn btn-sm btn-bink share-popup">Chia sẻ</a>
+                               class="btn btn-sm btn-blue share-popup">Chia sẻ</a>
                         </div>
                     </div>
                     <?php echo $this->Form->end();?>
-                    <div class="row m-top-10">
-                        <div
-                            class="fb-like"
-                            data-share="true"
-                            data-width="450"
-                            data-show-faces="true">
-                        </div>
-                    </div>
+                </div>
+                <div class="col-md-2">
+
+                </div>
+            </div>
+            <div class="row relation">
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-4">
+
                 </div>
             </div>
             <div class="row">

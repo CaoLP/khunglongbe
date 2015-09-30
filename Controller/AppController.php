@@ -86,7 +86,9 @@ class AppController extends Controller
 
     function getProviders(){
         $providers = $this->Provider->get_listProviders();
+
         $providers = Set::combine($providers,'{n}.Provider.id','{n}.Provider');
         $this->set(compact('providers'));
+
     }
 }

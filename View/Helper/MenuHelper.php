@@ -31,51 +31,20 @@ class MenuHelper extends Helper
         endforeach;
     }
 
-    public function createMenu($menu, $name ,$class = '')
+    public function createMenu($menu , $parent = 'FrontMenu', $child = 'children', $sub = false)
     {
-        foreach ($menu[$name]['FrontMenu'] as $item):
-            $submenu = false;
-            if (count($item['ChildFrontMenu']) > 0) $submenu = true;
-            if (!$submenu):
-                ?>
-                <li class="<?php echo $class;?>">
-                    <a href="<?php echo $item['url']; ?>"  class=" <?php if ($item['url'] == $this->request->here) echo 'active'; ?>"><i
-                            class="<?php echo $item['icon']; ?>"></i><?php echo $item['name']; ?>
-                    </a>
-                </li>
-            <?php
-            else:
-                $active = '';
-                $in = '';
-                $html = '<li class="'.$class.'">
-                    <a href="#sub' . $item['id'] . '" class=" {active}" data-toggle="collapse">
-                        <i class="' . $item['icon'] . '"></i>' . $item['name'] . ' <span class="glyphicon glyphicon-chevron-right"></span></a>
-                    </li>';
-                if($item['url'] == $this->request->here){
-                    $in = 'in';
-                    $active = 'active';
-                }
-                $html .= '<li class="collapse {flag} '.$class.'" id="sub' . $item['id'] . '">
-                    <a href="' . Router::url($item['url']) . '" class="'.$active.'">
-                    <i class="' . $item['icon'] . '"></i>' . $item['name'] . '</a>';
-
-                foreach ($item['ChildFrontMenu'] as $child):
-                    $subactive = '';
-                    if ($child['url'] == $this->request->here) {
-                        if($active == '') $active = 'active';
-                        $subactive = 'active';
-                        $in = 'in';
-                    }
-                    $html .= '<a href="' .  Router::url($child['url']) . '"
-                       class=" ' . $subactive . '"><i
-                            class="' . $child['icon'] . '"></i>' . $child['name'] . '</a>';
-                endforeach;
-                $html .= '</li>';
-                $html = str_replace('{active}', $active, $html);
-                $html = str_replace('{flag}', $in, $html);
-                echo $html;
-            endif;
-        endforeach;
+        $html = '';
+        if($sub) $html .= '<ul class="dropdown-menu">';
+        foreach($menu as $m){
+            $url =  $this->_View->Html->url($m[$parent]['url']);
+            $html.='<li><a href="'.$url.'">'.$m[$parent]['name'].'</a>';
+            if(count($m[$child])>0){
+                $html .= $this->createMenu($m[$child], $parent, $child, true);
+            }
+            $html.='</li>';
+        }
+        if($sub) $html .= '</ul>';
+        return $html;
     }
     public function loadCategory($categories, $parent = 'Category' , $child = 'children', $sub = false){
         $html = '';

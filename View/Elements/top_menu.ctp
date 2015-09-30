@@ -9,8 +9,8 @@
             </button>
         </div>
         <div class="navbar-collapse navbar-collapse-top collapse">
-            <ul class="nav nav-pills navbar-center">
-                <?php echo $this->Menu->createMenu($menus, 'Top'); ?>
+            <ul class="nav nav-pills navbar-nav navbar-center">
+                <?php echo $this->Menu->createMenu($menus); ?>
             </ul>
             <div class="shop-cart">
                 <ul class="nav navbar-right">

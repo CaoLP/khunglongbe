@@ -1,5 +1,6 @@
 body{
     /*background: url("../images/bg.jpg");*/
+    color: #000;
 }
 .nav-pills > li > a {
     border-bottom: 3px solid transparent;
@@ -372,4 +373,127 @@ footer .footer-container{
 }
 .m-b-30{
     margin-bottom: 30px;
+}
+.c-pink{
+    color: #f60b7d;
+}
+.productDetail>.panel-heading{
+    padding: 10px 0px;
+}
+.productDetail .panel-heading h2 {
+    font-weight: normal;
+    font-size: 20px;
+    color: #000;
+}
+.productDetail .panel-heading h2 small{
+    font-weight: bold;
+    font-family: tahoma;
+    font-size: 11px;
+}
+.productDetail .panel-heading .des {
+    margin-top: 8px;
+    line-height: 16px;
+}
+.productDetail .prod-detail{
+    border-top: 2px solid #000;
+}
+.detail{
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+}
+.relation{
+    border-bottom: 2px solid #000;
+    margin-bottom: 20px;
+}
+.summaryinfo{
+    margin-top: 25px;
+}
+.summaryinfo dl {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.summaryinfo dl dt, .summaryinfo dl dd {
+    float: left;
+    line-height: 14px;
+    font-size: 12px;
+}
+.summaryinfo dl dt{
+}
+.summaryinfo dl dd{
+}
+.summaryinfo .select-qty {
+    display: inline-block;
+    position: relative;
+    width: 110px;
+    height: 24px;
+    vertical-align: middle;
+    text-align: left;
+}
+.summaryinfo .select-qty input {
+    width: 108px;
+    height: 24px;
+    padding: 0;
+    padding-left: 15px;
+    border: 1px solid #e4e4e4;
+    text-align: center;
+    font-weight: bold;
+    font-size: 11px;
+    line-height: 22px;
+    vertical-align: top;
+    font-family: 'Tahoma', sans-serif;
+}
+.summaryinfo .select-qty button.minus {
+     left: 0px;
+ }
+.summaryinfo .select-qty button.plus {
+      right: 0px;
+  }
+.summaryinfo .select-qty button {
+    position: absolute;
+    top: 0px;
+    border: 0;
+    padding: 0;
+    width: 25px;
+    height: 24px;
+    vertical-align: top;
+    border: 1px solid #e4e4e4;
+    background-color: #fff;
+}
+.summaryinfo .total .t {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 18px;
+}
+.summaryinfo .total em {
+    display: inline-block;
+    font-weight: bold;
+    font-family: tahoma;
+    font-size: 18px;
+    color: #f60b7d;
+    letter-spacing: -1px;
+    font-style: normal;
+}
+.summaryinfo .total small{
+    font-size: 10px;
+    font-weight: bold;
+}
+.summaryinfo .btnwrap {
+    margin-top: 40px;
+    margin-left: -3px;
+    text-align: center;
+}
+.btn-bink{
+    background-color: #EF3E96;
+    color: #fff
+}
+.btn-blue{
+    background-color: #46629E;
+    color: #fff
+}
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    border-top-color: #f60b7d;
+    border-bottom-color: #fff;
+    color: #f60b7d;
+    cursor: default;
 }

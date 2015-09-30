@@ -37,7 +37,7 @@ class MenuPosition extends AppModel {
 			'className' => 'FrontMenu',
 			'foreignKey' => 'menu_position_id',
 			'dependent' => false,
-			'conditions' => '',
+			'conditions' => array('FrontMenu.parent_id'=>null),
 			'fields' => '',
 			'order' => '',
 			'limit' => '',
