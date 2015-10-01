@@ -1,3 +1,4 @@
+
 <div class="col-md-8">
     <div class="single-container hentry " style="border-top: 4px solid #8de3e8;">
 
@@ -23,6 +24,9 @@
         <div class="single-meta-wrap">
 
             <ul class="list-unstyled single-meta-inf meta clearfix">
+                <li>
+                    <div class="fb-like" data-href="<?php echo $this->Html->url('/blog/'  . '/' . $post['Post']['slug']);?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                </li>
                 <li class="post-date date updated"><i class="fa fa-calendar-o"></i><?php echo date('\N\g\à\y y \t\h\á\n\g d \n\ă\m Y',strtotime($post['Post']['created']));?></li>
                 <li>
                     <i class="fa fa-bookmark-o"></i>
@@ -57,7 +61,14 @@
             </ul>
         </div>
         <!-- end single meta -->
-
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="fb-comments"
+                     data-href="<?php echo $this->Html->url($this->request->here,true); ?>"
+                     data-numposts="15" data-colorscheme="light">
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <?php

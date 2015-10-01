@@ -84,66 +84,7 @@
     <div class="row" id="content">
         <?php echo $this->fetch('content') ?>
         <div class="col-md-4" id="left-side-bar">
-            <div class="sidebar-wrap">
-                <aside class="widget clearfix">
-                    <h3 class="widget-title">Most Popular (views)</h3>
-
-                    <div class="side-item">
-                        <figure class="side-item-thumb">
-                            <a href="http://themes.birdwp.com/zefir/post-3/" title="Gallery format – Sticky post">
-                                <img
-                                    src="http://themes.birdwp.com/zefir/wp-content/uploads/2014/05/girl-flowers-150x150.jpg"
-                                    class="widget-thumb-img" alt="Gallery format – Sticky post">
-                            </a>
-                        </figure>
-                        <div class="side-item-content">
-                            <h4><a href="http://themes.birdwp.com/zefir/post-3/" title="Gallery format – Sticky post">Gallery
-                                    format – Sticky post</a></h4>
-
-                            <p>Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Sed
-                                hendrerit. Morbi ac ...</p>
-                            <ul class="list-unstyled side-item-meta clearfix">
-                                <li><i class="fa fa-eye"></i>&nbsp;9493</li>
-                                <li><span class="jm-post-like"><a rel="nofollow" href="#" data-post_id="127"
-                                                                  onclick="return false;"><span class="like"><i
-                                                    class="fa fa-heart-o"></i></span><span class="count">260</span></a></span>
-                                </li>
-                                <li><i class="fa fa-calendar-o"></i>&nbsp;May 1, 2014</li>
-                            </ul>
-                        </div>
-                    </div>
-                </aside>
-                <aside id="bird_posts_thumbs_widget-8" class="widget bird_posts_thumbs_widget clearfix">
-                    <h3 class="widget-title">Random posts</h3>
-
-                    <div class="side-item-post-thumbs">
-                        <ul class="list-unstyled clearfix">
-                            <li>
-                                <figure class="side-item-thumb">
-                                    <a href="http://themes.birdwp.com/zefir/post-4/" class="thumb-post-title"
-                                       data-toggle="tooltip" data-placement="top" title=""
-                                       data-original-title="Vestibulum ante ipsum primis">
-                                        <img
-                                            src="http://themes.birdwp.com/zefir/wp-content/uploads/2014/05/6-150x150.jpg"
-                                            class="widget-thumb-img" alt="Vestibulum ante ipsum primis">
-                                    </a>
-                                </figure>
-                            </li>
-                        </ul>
-                    </div>
-
-                </aside>
-                <aside id="categories-8" class="widget widget_categories clearfix">
-                    <h3 class="widget-title">Categories</h3>
-                    <ul>
-                        <li class="cat-item cat-item-97"><a
-                                href="http://themes.birdwp.com/zefir/category/fullwidth-post/"
-                                title="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec.">Fullwidth
-                                post</a>
-                        </li>
-                    </ul>
-                </aside>
-            </div>
+            <?php echo $this->element('blog_sidebar');?>
         </div>
     </div>
 </div>
@@ -156,8 +97,14 @@
         'action' => 'cart'
     ))?>';
 </script>
+<script>
+    var relative = "<?php echo $this->Html->url(array(
+        'controller'=>'pages',
+        'action'=>'relative',
+    ))?>";
+</script>
 <?php
-echo $this->Html->script(array('jquery-2.1.1.min', 'bootstrap', 'jquery.smartmenus', 'jquery.smartmenus.bootstrap', 'action'));
+echo $this->Html->script(array('jquery-2.1.1.min', 'bootstrap', 'jquery.smartmenus', 'jquery.smartmenus.bootstrap', 'action','blogs'));
 echo $this->fetch('script');
 
 ?>

@@ -50,6 +50,7 @@
 
                 <!-- bottom meta inf -->
                 <div class="bottom-meta-inf-wrap">
+                    <div class="fb-like" data-href="<?php echo $this->Html->url('/blog/'  . '/' . $post['Post']['slug']);?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
                     <?php if(false) :?>
                     <ul class="list-unstyled bottom-meta-inf meta clearfix">
                         <li><i class="fa fa-eye"></i>7558</li>

@@ -71,7 +71,6 @@ figure {
     color: #98a1a4;
 }
 ul.side-item-meta {
-    padding: 0 0 0 80px;
     margin: 0;
 }
 ul.side-item-meta li {
@@ -291,4 +290,13 @@ ul.single-meta-inf li {
     margin: 4px 15px 4px 4px;
     color: #909ea3;
     position: relative;
+}
+.widget_categories ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.widget_categories ul li {
+    margin: 6px 0;
+    color: #98a1a4;
 }

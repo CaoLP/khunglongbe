@@ -1,13 +1,17 @@
 <?php if (isset($data['products']) && count($data['products'])): ?>
     <div class="panel slide-item">
+
         <div class="<?php echo $data['class'] ?>"></div>
         <div class="panel-heading has-icon">
             <a href="<?php echo $data['url'] ?>"><?php echo $data['title'] ?></a>
+            <?php if(!empty($use_header)) :?>
             <hr>
             <small class="pull-right">
                 <a href="<?php echo $data['url'] ?>">Xem tất cã</a>
             </small>
+            <?php endif;?>
         </div>
+
         <div class="panel-body">
             <div>
                 <div id="carousel-<?php echo $data['class']; ?>" class="carousel" data-ride="carousel">
@@ -51,7 +55,7 @@
                                     </a>
                                 </div>
                                 <span class="brdname"><?php
-                                        if(isset($providers[$p['Product']['provider_id']])){
+                                        if(isset($providers[$p['Product']['provider_id']])&& !empty($providers[$p['Product']['provider_id']]['thumb'])){
                                             echo $this->Html->image(
                                                 Configure::read('Img.path')
                                                 .$providers[$p['Product']['provider_id']]['thumb'],

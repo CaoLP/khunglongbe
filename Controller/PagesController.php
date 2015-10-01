@@ -361,6 +361,31 @@ class PagesController extends AppController
                 $this->view = 'post_detail';
             }
         }
+        $recents = $this->Post->find('all', array(
+            'fields'=> array('Post.title,Post.slug,Post.excert,Post.created,Post.media_id,Thumb.file'),
+            'conditions' => array(
+
+            ),
+            'recursive' => 0,
+            'limit' =>10,
+            'order' => array('Post.created DESC')
+        ));
+        $randoms = $this->Post->find('all', array(
+            'fields'=> array('Post.title,Post.slug,Post.excert,Post.created,Post.media_id,Thumb.file'),
+            'conditions' => array(
+
+            ),
+            'recursive' => 0,
+            'limit' =>10,
+            'order' => array('RAND()')
+        ));
+        $cats = $this->PostCategory->find('all', array(
+            'conditions' => array(
+                'PostCategory.id <>' => 1
+            ),
+            'recursive' => -1,
+        ));
+        $this->set(compact('recents','cats','randoms'));
         $this->layout = 'blogs';
     }
 
@@ -573,5 +598,52 @@ class PagesController extends AppController
             $this->setTitle($provider['Provider']['name']);
         else
             $this->setTitle('Sản phẩm');
+    }
+    public function relative(){
+        if($this->request->is('ajax')){
+            $this->layout= 'ajax';
+            $this->Product->hasMany = array();
+            $total = $this->request->data('total');
+            $total_item = $this->request->data('total_item');
+            if(empty($total)) $total = 4;
+            if(empty($total_item)) $total_item = 4;
+            $this->set(compact('total_item'));
+            $this->set('title', $this->request->data('title'));
+            if(!empty($this->request->data['use_slide'])) $this->set('use_slide',1);
+            $conditions = array(
+                'fields' => 'Product.*,Category.*,Thumb.file',
+                'conditions' => array(
+                    'NOT' => array(
+                        'Product.name' => array('0', ''),
+                    ),
+                ),
+                'joins' => array(
+                    array(
+                        'table' => 'product_promotes',
+                        'alias' => 'ProductPromote',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'Product.id = ProductPromote.product_id'
+                        )
+                    ),
+                    array(
+                        'table' => 'promotes',
+                        'alias' => 'Promote',
+                        'type' => 'LEFT',
+                        'conditions' => array(
+                            'ProductPromote.promote_id = Promote.id',
+                            'Promote.begin <=' => date('Y-m-d H:i:s'),
+                            'Promote.end >=' => date('Y-m-d H:i:s'),
+                        )
+                    )
+                ),
+                'order' => array('RAND()'),
+                'limit' => $total
+            );
+            if(isset($this->request->data['category']) && !empty($this->request->data['category']))
+                $conditions['conditions']['Product.category_id'] = $this->request->data('category');
+            $products = $this->Product->find('all', $conditions);
+            $this->set(compact('products'));
+        }else die;
     }
 }

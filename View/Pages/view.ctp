@@ -2,6 +2,13 @@
 echo $this->Html->script(array('jquery.etalage.min.js','view.js'),array('inline'=>false));
 echo $this->Html->css(array('etalage.css'),array('inline'=>false));
 ?>
+<script>
+    var relative = "<?php echo $this->Html->url(array(
+        'controller'=>'pages',
+        'action'=>'relative',
+    ))?>";
+    var category = "<?php echo $product['Product']['category_id'];?>";
+</script>
 <div class="col-md-12" id="p-content">
     <div class="panel productDetail">
         <div class="panel-heading">
@@ -160,10 +167,10 @@ echo $this->Html->css(array('etalage.css'),array('inline'=>false));
                 </div>
             </div>
             <div class="row relation">
-                <div class="col-md-8">
+                <div class="col-md-8" id="relative-1">
 
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="relative-2">
 
                 </div>
             </div>
